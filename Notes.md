@@ -30,7 +30,7 @@ status: <!-- unpublished | built | published | failed -->
 | 1-mcp-server-framework | feature/1-mcp-server-framework | done |
 | 2-credentials-log-book | feature/2-credentials-log-book | done |
 | 3-application-log | feature/3-application-log | done |
-| 4-browser-session-tools | | approved |
+| 4-browser-session-tools | feature/4-browser-session-tools | branched |
 | 5-apply-orchestration | | approved |
 
 ## Stories
@@ -45,7 +45,7 @@ status: <!-- unpublished | built | published | failed -->
 | 2-credentials-log-book | 3-credential-tools | story/2-credentials-log-book/3-credential-tools (deleted, merged) | merged |
 | 3-application-log | 1-record-application | story/3-application-log/1-record-application (deleted, merged) | merged |
 | 3-application-log | 2-query-application-history | story/3-application-log/2-query-application-history (deleted, merged) | merged |
-| 4-browser-session-tools | 1-retry-policy | | approved |
+| 4-browser-session-tools | 1-retry-policy | story/4-browser-session-tools/1-retry-policy | tests |
 | 4-browser-session-tools | 2-session-lifecycle | | approved |
 | 4-browser-session-tools | 3-fill-field | | approved |
 | 4-browser-session-tools | 4-advance-page | | approved |
@@ -153,4 +153,4 @@ status: <!-- unpublished | built | published | failed -->
 
 ## Next Action
 <!-- One sentence. What should happen next, and who does it (agent or user). -->
-PR #13 (epic) auto-merged (mergeable clean, CI green) — feature 3-application-log fully done. Run /stage-a 4-browser-session-tools/1-retry-policy (next feature in build order).
+Run /stage-b 4-browser-session-tools/1-retry-policy (tests written on story/4-browser-session-tools/1-retry-policy; production code not yet written).
