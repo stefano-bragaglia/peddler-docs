@@ -30,7 +30,7 @@ status: <!-- unpublished | built | published | failed -->
 | 1-mcp-server-framework | feature/1-mcp-server-framework | done |
 | 2-credentials-log-book | feature/2-credentials-log-book | done |
 | 3-application-log | feature/3-application-log | done |
-| 4-browser-session-tools | feature/4-browser-session-tools | stories-merged |
+| 4-browser-session-tools | feature/4-browser-session-tools | done |
 | 5-apply-orchestration | | approved |
 
 ## Stories
@@ -153,4 +153,4 @@ status: <!-- unpublished | built | published | failed -->
 
 ## Next Action
 <!-- One sentence. What should happen next, and who does it (agent or user). -->
-PR #18 merged; all 5 stories for 4-browser-session-tools now merged -> feature is stories-merged. Run /pr 4-browser-session-tools to open the epic PR into main (will auto-merge if clean and CI-green).
+PR #19 (epic) auto-merged (mergeable clean, CI green) — feature 4-browser-session-tools fully done. Run /stage-a 5-apply-orchestration/1-apply-command (last feature in build order).
