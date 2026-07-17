@@ -42,7 +42,7 @@ status: <!-- unpublished | built | published | failed -->
 | 1-mcp-server-framework | 3-request-dispatch-and-lifecycle | story/1-mcp-server-framework/3-request-dispatch-and-lifecycle (deleted, merged) | merged |
 | 2-credentials-log-book | 1-log-book-storage | story/2-credentials-log-book/1-log-book-storage (deleted, merged) | merged |
 | 2-credentials-log-book | 2-password-generator | story/2-credentials-log-book/2-password-generator (deleted, merged) | merged |
-| 2-credentials-log-book | 3-credential-tools | | approved |
+| 2-credentials-log-book | 3-credential-tools | story/2-credentials-log-book/3-credential-tools | tests |
 | 3-application-log | 1-record-application | | approved |
 | 3-application-log | 2-query-application-history | | approved |
 | 4-browser-session-tools | 1-retry-policy | | approved |
@@ -145,4 +145,4 @@ status: <!-- unpublished | built | published | failed -->
 
 ## Next Action
 <!-- One sentence. What should happen next, and who does it (agent or user). -->
-PR #7 merged. story/2-credentials-log-book/2-password-generator deleted (remote+local); feature/2-credentials-log-book pulled up to date. Run /stage-a 2-credentials-log-book/3-credential-tools (last story for this feature; once merged, feature becomes stories-merged and ready for /pr 2-credentials-log-book).
+Run /stage-b 2-credentials-log-book/3-credential-tools (tests written on story/2-credentials-log-book/3-credential-tools; production code not yet written). Last story for this feature — once merged, feature becomes stories-merged and ready for /pr 2-credentials-log-book.
