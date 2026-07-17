@@ -2,7 +2,7 @@
 
 ## Phase
 <!-- onboarding | setup | requirements | features | stories | stage-a | stage-b | pr | publish | done -->
-stage-a
+stage-b
 
 ## Project
 name: peddler
@@ -36,7 +36,7 @@ status: <!-- unpublished | built | published | failed -->
 | Feature | Story | Branch | Status |
 |---------|-------|--------|--------|
 <!-- status: proposed | approved | tests | code | pr-open | merged -->
-| 1-mcp-server-framework | 1-stdio-transport | | approved |
+| 1-mcp-server-framework | 1-stdio-transport | story/1-mcp-server-framework/1-stdio-transport | tests |
 | 1-mcp-server-framework | 2-tool-registry | | approved |
 | 1-mcp-server-framework | 3-request-dispatch-and-lifecycle | | approved |
 | 2-credentials-log-book | 1-log-book-storage | | approved |
@@ -99,4 +99,4 @@ status: <!-- unpublished | built | published | failed -->
 
 ## Next Action
 <!-- One sentence. What should happen next, and who does it (agent or user). -->
-All 15 stories approved. Run /stage-a 1-mcp-server-framework/1-stdio-transport, then proceed one story at a time in numbered order.
+Run /stage-b 1-mcp-server-framework/1-stdio-transport.
