@@ -40,7 +40,7 @@ status: <!-- unpublished | built | published | failed -->
 | 1-mcp-server-framework | 1-stdio-transport | story/1-mcp-server-framework/1-stdio-transport (deleted, merged) | merged |
 | 1-mcp-server-framework | 2-tool-registry | story/1-mcp-server-framework/2-tool-registry (deleted, merged) | merged |
 | 1-mcp-server-framework | 3-request-dispatch-and-lifecycle | story/1-mcp-server-framework/3-request-dispatch-and-lifecycle (deleted, merged) | merged |
-| 2-credentials-log-book | 1-log-book-storage | story/2-credentials-log-book/1-log-book-storage | tests |
+| 2-credentials-log-book | 1-log-book-storage | story/2-credentials-log-book/1-log-book-storage | code |
 | 2-credentials-log-book | 2-password-generator | | approved |
 | 2-credentials-log-book | 3-credential-tools | | approved |
 | 3-application-log | 1-record-application | | approved |
@@ -137,4 +137,4 @@ status: <!-- unpublished | built | published | failed -->
 
 ## Next Action
 <!-- One sentence. What should happen next, and who does it (agent or user). -->
-Run /stage-b 2-credentials-log-book/1-log-book-storage (tests written on story/2-credentials-log-book/1-log-book-storage; production code not yet written).
+Run /pr 2-credentials-log-book/1-log-book-storage to open its PR against feature/2-credentials-log-book (code done, all gates green, 100% coverage).
