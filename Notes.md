@@ -125,6 +125,15 @@ status: <!-- unpublished | built | published | failed -->
   opening a later PR into `main` will diff cleanly, showing only their new work. Feature status stays
   `branched` (not `done`) until that real final PR merges — `main` having story 1's code early doesn't count
   as the feature being done. No revert applied; decided to just continue forward.
+- 2026-07-17: Found and fixed a systemic gap: no command (or `CLAUDE.md`) ever instructed committing the
+  **vault-root** repo itself after updating `Notes.md`/`documentation/` — only `project/` commits were
+  specified anywhere. This is why feature 1's `Notes.md` status updates and `DONE -` markers sat uncommitted
+  through several subsequent commands until caught and committed by hand. Added a general rule to
+  `CLAUDE.md → Notes.md Contract` (every command's final action, when it edits `Notes.md`/`documentation/`,
+  is to commit those changes to the vault repo — separate from any `project/` commit), and added an explicit
+  commit step to every command file that touches `Notes.md`/`documentation/`: `describe`, `requirements`,
+  `features`, `stories`, `stage-a`, `stage-b`, `pr` (both story- and epic-tier, including the on-merge steps),
+  `setup`, `publish`.
 
 ## Next Action
 <!-- One sentence. What should happen next, and who does it (agent or user). -->
