@@ -157,4 +157,4 @@ status: <!-- unpublished | built | published | failed -->
 
 ## Next Action
 <!-- One sentence. What should happen next, and who does it (agent or user). -->
-All 5 features done and merged to main. Awaiting review/merge of PR #23 (chore/readme-updates -> main, README accuracy fixes + badges + full restructure, CI green). After that: nothing left to build — consider /publish, or ask the user what's next.
+All 5 features done and merged to main. Awaiting review/merge of PR #23 (chore/readme-updates -> main, README accuracy fixes + badges + full restructure + Design Rationale/Known Limitations sections, CI green). After that: nothing left to build — consider /publish, or ask the user what's next.
