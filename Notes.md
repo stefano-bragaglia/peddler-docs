@@ -51,7 +51,7 @@ status: <!-- unpublished | built | published | failed -->
 | 4-browser-session-tools | 4-advance-page | story/4-browser-session-tools/4-advance-page (deleted, merged) | merged |
 | 4-browser-session-tools | 5-fill-credential-field | story/4-browser-session-tools/5-fill-credential-field (deleted, merged) | merged |
 | 5-apply-orchestration | 1-apply-command | story/5-apply-orchestration/1-apply-command (deleted, merged) | merged |
-| 5-apply-orchestration | 2-email-extractor | story/5-apply-orchestration/2-email-extractor | tests |
+| 5-apply-orchestration | 2-email-extractor | story/5-apply-orchestration/2-email-extractor | code |
 
 ## Decisions
 <!-- Key choices made and why. Future agents use this to avoid re-litigating. -->
@@ -153,4 +153,4 @@ status: <!-- unpublished | built | published | failed -->
 
 ## Next Action
 <!-- One sentence. What should happen next, and who does it (agent or user). -->
-Run /stage-b 5-apply-orchestration/2-email-extractor (tests written on story/5-apply-orchestration/2-email-extractor; production code not yet written). Last story of the last feature.
+Run /pr 5-apply-orchestration/2-email-extractor to open its PR against feature/5-apply-orchestration (code done, all gates green, 95.41% coverage). Last story of the last feature — once merged, feature becomes stories-merged and ready for /pr 5-apply-orchestration, which will complete the whole project.
