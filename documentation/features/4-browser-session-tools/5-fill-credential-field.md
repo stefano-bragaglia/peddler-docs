@@ -1,4 +1,4 @@
-# 3. Fill Credential Field
+# 5. Fill Credential Field
 
 ## What it does
 
@@ -52,7 +52,7 @@ read primitive from `src/peddler/credentials/store.py` (epic `2-credentials-log-
 
 ## Dependencies
 
-Story 2 (Session Lifecycle), same as `fill_field`/`advance_page`. **Cross-epic**: also depends on
-`2-credentials-log-book`'s `1-log-book-storage` story — this is the one point where these two wave-2 epics are
-no longer fully independent; `1-log-book-storage` must be complete before this specific story can be implemented
-(Stage A can still be written against a stub/fake store, but Stage B needs the real one).
+Story 2 (Session Lifecycle), same as `fill_field`/`advance_page`. **Cross-feature**: also depends on
+`2-credentials-log-book`'s `1-log-book-storage` story — this is why the `4-browser-session-tools` feature is
+sequenced after `2-credentials-log-book` in the project's overall build order. Stage A can still be written
+against a stub/fake store, but Stage B needs the real one.

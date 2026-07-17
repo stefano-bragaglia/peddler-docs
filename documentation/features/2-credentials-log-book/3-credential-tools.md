@@ -1,4 +1,4 @@
-# 2. Credential Tools
+# 3. Credential Tools
 
 ## What it does
 
@@ -11,7 +11,7 @@ other exposed path to it.
 
 - `read_credentials(site: str) -> {"found": bool, "username": str | None}` — deliberately does **not** return the
   password in the tool result surfaced to the LLM's context; the password stays server-side. Confirmed: logging
-  in with a stored password is done via `2-browser-session-tools`'s `fill_credential_field(field_id, site)`,
+  in with a stored password is done via `4-browser-session-tools`'s `fill_credential_field(field_id, site)`,
   which reads the password directly from this feature's store and applies it to the page without it ever
   entering the LLM's context or a conversation transcript.
 - `write_credentials(site: str, username: str, password: str) -> {"ok": bool}` — stores the entry via

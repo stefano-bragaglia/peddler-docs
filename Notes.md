@@ -27,10 +27,10 @@ status: <!-- unpublished | built | published | failed -->
 | Feature | Branch | Status |
 |---------|--------|--------|
 | 1-mcp-server-framework | feature/1-mcp-server-framework | branched |
-| 2-browser-session-tools | feature/2-browser-session-tools | branched |
 | 2-credentials-log-book | feature/2-credentials-log-book | branched |
-| 2-application-log | feature/2-application-log | branched |
-| 3-apply-orchestration | feature/3-apply-orchestration | branched |
+| 3-application-log | feature/3-application-log | branched |
+| 4-browser-session-tools | feature/4-browser-session-tools | branched |
+| 5-apply-orchestration | feature/5-apply-orchestration | branched |
 
 ## Stories
 | Feature | Story | Branch | Status |
@@ -56,11 +56,19 @@ status: <!-- unpublished | built | published | failed -->
   abort; generated passwords are never echoed into the CLI transcript, only written to the credentials log book;
   crashes/timeouts/network drops auto-retry up to 3 attempts with backoff before falling back to Stuck Handling;
   no hard cap on form-page/step count, relying on LLM judgment instead.
-- 2026-07-17: Features approved: `1-mcp-server-framework` (wave 1); `2-browser-session-tools`,
-  `2-credentials-log-book`, `2-application-log` (wave 2, independent, parallelisable); `3-apply-orchestration`
-  (wave 3, depends on all of wave 2). All five `feature/<name>` branches created in `project/`. Also updated
-  `.claude/commands/stories.md` (vault-local, untracked) to require a **Deliverables** section per story.
+- 2026-07-17: Features approved (originally as wave-numbered `1-mcp-server-framework` / `2-*` / `3-apply-orchestration`;
+  all five `feature/<name>` branches created in `project/`. Also updated `.claude/commands/stories.md`
+  (vault-local, untracked) to require a **Deliverables** section per story.
+- 2026-07-17: Workflow simplified to **no parallelisation** (`project/` is a single local working directory with
+  no room for multiple git worktrees, so forking Stage A/B risks two stories clobbering each other's files).
+  Reworked feature/story numbering from dependency-wave (ties allowed) to strict unique sequential build order.
+  Renumbered accordingly: `1-mcp-server-framework`, `2-credentials-log-book`, `3-application-log`,
+  `4-browser-session-tools` (moved after credentials-log-book since its `fill_credential_field` story depends on
+  credentials-log-book's storage), `5-apply-orchestration`. Story numbers within each feature were similarly
+  de-tied (e.g. browser-session-tools' three tied "3"s became 3/4/5). `documentation/features/` (5 epics, 15
+  stories) and `project/`'s branches renamed to match. `CLAUDE.md`'s *Parallelism Rules* replaced with *Sequential
+  Execution Only*.
 
 ## Next Action
 <!-- One sentence. What should happen next, and who does it (agent or user). -->
-Run /stories <feature> for each feature (can be parallelised) — start with 1-mcp-server-framework.
+Run /stories review/approval, then /stage-a for each story in numbered order, starting with 1-mcp-server-framework/1-stdio-transport.

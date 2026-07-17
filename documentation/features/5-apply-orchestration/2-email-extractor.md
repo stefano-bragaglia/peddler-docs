@@ -1,4 +1,4 @@
-# 1. Email Extractor
+# 2. Email Extractor
 
 ## What it does
 
@@ -40,4 +40,4 @@ correctly every time.
 
 ## Dependencies
 
-None (wave 1).
+None at the story level.

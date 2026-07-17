@@ -47,5 +47,4 @@ success, or the last exception re-raised after the 3rd failed attempt.
 
 ## Dependencies
 
-None (wave 1 — depends only on feature `1-mcp-server-framework` at the feature level, no intra-feature story
-dependency).
+None at the story level — depends only on feature `1-mcp-server-framework` at the feature level.

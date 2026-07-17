@@ -20,7 +20,7 @@ field.
   distinct from a validation error.
 - The page surfaces a validation error only after the field loses focus / on a later `advance_page()` call rather
   than immediately — `fill_field` itself may return `status: "ok"` in that case; the delayed error is expected to
-  surface via `advance_page()` instead (documented so the orchestration feature, `3-apply-orchestration`, knows
+  surface via `advance_page()` instead (documented so the orchestration feature, `5-apply-orchestration`, knows
   not to assume `fill_field`'s success is the final word on validity).
 - Field type variations (text input, select/dropdown, checkbox, radio) — `value` semantics differ per type (e.g.
   a select's `value` is the option to choose); acceptance criteria below only need to cover a plain text input

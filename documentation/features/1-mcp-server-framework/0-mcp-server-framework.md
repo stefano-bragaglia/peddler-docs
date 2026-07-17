@@ -17,8 +17,8 @@ crashing the server process.
 
 ## Dependencies
 
-None — this is the first wave; every other feature depends on it.
+None — built first; every other feature depends on it.
 
 ## Stories
 
-See `documentation/features/stories/1-mcp-server-framework.md` (added by `/stories`).
+See the numbered story files alongside this one in `documentation/features/1-mcp-server-framework/`.

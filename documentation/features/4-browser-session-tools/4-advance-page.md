@@ -1,4 +1,4 @@
-# 3. Advance Page
+# 4. Advance Page
 
 ## What it does
 
@@ -24,7 +24,7 @@ page's content or any field-specific errors the page surfaced instead of transit
 - Page transitions to a page with no recognizable form and no recognizable success indicator (e.g. a generic
   error page) → still returns `status: "advanced"` with that page's content; judging whether it's success,
   another form, or something gone wrong is explicitly out of scope for this tool (LLM judgment, per
-  `3-apply-orchestration`) — this tool only reports what happened mechanically.
+  `5-apply-orchestration`) — this tool only reports what happened mechanically.
 
 ## Acceptance criteria
 
@@ -52,5 +52,6 @@ page's content or any field-specific errors the page surfaced instead of transit
 
 ## Dependencies
 
-Story 2 (Session Lifecycle) — operates on the session it manages. Independent of Story 3 (Fill Field) — both
-share number 3 as they only depend on Session Lifecycle, not on each other.
+Story 2 (Session Lifecycle) — operates on the session it manages. Has no dependency on Story 3 (Fill Field);
+sequenced after it here purely as an arbitrary tie-break between two stories that could be built in either
+order.

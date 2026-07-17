@@ -1,4 +1,4 @@
-# 3. Apply Orchestration
+# 5. Apply Orchestration
 
 ## Summary
 
@@ -7,7 +7,7 @@ feature together: parsing the CV and JD, detecting and handling login/sign-up pa
 (identify fields → plan values from CV filtered through the JD → fill → advance → judge success vs. another
 step), Stuck Handling (pause for text guidance, abort with a visible-browser suggestion if unresolved), success
 notification, and recording the outcome to the application log. This is the "brain" that drives the tools built
-by features 1–2; those features supply the actions, this feature supplies the decisions and the user-facing
+by features 1–4; those features supply the actions, this feature supplies the decisions and the user-facing
 conversation.
 
 ## Requirements Covered
@@ -28,10 +28,10 @@ conversation.
 
 ## Dependencies
 
-- `2-browser-session-tools` — drives the browser via its tools.
+- `4-browser-session-tools` — drives the browser via its tools.
 - `2-credentials-log-book` — consults it during sign-up handling.
-- `2-application-log` — records the outcome of each attempt.
+- `3-application-log` — records the outcome of each attempt.
 
 ## Stories
 
-See `documentation/features/stories/3-apply-orchestration.md` (added by `/stories`).
+See the numbered story files alongside this one in `documentation/features/5-apply-orchestration/`.

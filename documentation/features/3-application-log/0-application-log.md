@@ -1,4 +1,4 @@
-# 2. Application Log
+# 3. Application Log
 
 ## Summary
 
@@ -14,8 +14,8 @@ for future duplicate-application checks.
 ## Dependencies
 
 - `1-mcp-server-framework` — the recording action is exposed as a tool (or invoked via the framework's tool
-  dispatch) so the orchestration logic in feature 3 can call it the same way it calls other tools.
+  dispatch) so the orchestration logic in feature 5 can call it the same way it calls other tools.
 
 ## Stories
 
-See `documentation/features/stories/2-application-log.md` (added by `/stories`).
+See the numbered story files alongside this one in `documentation/features/3-application-log/`.

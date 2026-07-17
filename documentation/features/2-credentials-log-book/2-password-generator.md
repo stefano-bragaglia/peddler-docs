@@ -1,4 +1,4 @@
-# 1. Password Generator
+# 2. Password Generator
 
 ## What it does
 

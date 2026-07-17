@@ -21,7 +21,7 @@ field error, `advance_page` — judge success vs. another step from the resultin
 (pause for text-only guidance, abort with a visible-browser suggestion if unresolved, never attempt to solve a
 CAPTCHA itself), auto-retry up to 3 attempts with a short backoff on a tool-reported crash/timeout/network-drop
 before treating it as stuck, `close_session()` on success or abort, and record the final outcome (via the
-application log's recording tool, epic `2-application-log`) as one of `success` / `aborted` / `stuck-unresolved`.
+application log's recording tool, feature `3-application-log`) as one of `success` / `aborted` / `stuck-unresolved`.
 
 ## Inputs / Outputs
 
@@ -80,6 +80,6 @@ application log's recording tool, epic `2-application-log`) as one of `success` 
 
 ## Dependencies
 
-None (wave 1). Assumes the tools named above exist, by name and signature, per `Requirements.md` — their internal
-implementations belong to epics `1-mcp-server-framework`, `2-browser-session-tools`, `2-credentials-log-book`,
-and `2-application-log`.
+None at the story level. Assumes the tools named above exist, by name and signature, per `Requirements.md` —
+their internal implementations belong to features `1-mcp-server-framework`, `2-credentials-log-book`,
+`3-application-log`, and `4-browser-session-tools`, all sequenced before this one.

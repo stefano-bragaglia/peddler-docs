@@ -1,10 +1,10 @@
-# 2. Browser Session Tools
+# 4. Browser Session Tools
 
 ## Summary
 
 The Playwright-backed tools that give the LLM control over a single headless browser session: opening it,
 filling fields, advancing pages, and closing it. These are the "dumb executors" the orchestration logic
-(feature 3) drives — they don't decide *what* to fill in, only *how* to perform a browser action and report back
+(feature 5) drives — they don't decide *what* to fill in, only *how* to perform a browser action and report back
 what happened, including page-surfaced validation errors. Also owns the reliability behavior around transient
 browser/network failures: an auto-retry with backoff before giving up.
 
@@ -22,7 +22,9 @@ browser/network failures: an auto-retry with backoff before giving up.
 ## Dependencies
 
 - `1-mcp-server-framework` — tools are registered against that server.
+- `2-credentials-log-book` — one story (`fill_credential_field`) reads that feature's credential store directly;
+  this is why this feature is sequenced after it rather than immediately after `1-mcp-server-framework`.
 
 ## Stories
 
-See `documentation/features/stories/2-browser-session-tools.md` (added by `/stories`).
+See the numbered story files alongside this one in `documentation/features/4-browser-session-tools/`.

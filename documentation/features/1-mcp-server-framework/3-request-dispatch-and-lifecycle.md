@@ -1,4 +1,4 @@
-# 2. Request Dispatch & Lifecycle
+# 3. Request Dispatch & Lifecycle
 
 ## What it does
 
@@ -78,4 +78,4 @@ process.
 ## Dependencies
 
 - `1-stdio-transport`
-- `1-tool-registry`
+- `2-tool-registry`
