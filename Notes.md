@@ -50,7 +50,7 @@ status: <!-- unpublished | built | published | failed -->
 | 4-browser-session-tools | 3-fill-field | story/4-browser-session-tools/3-fill-field (deleted, merged) | merged |
 | 4-browser-session-tools | 4-advance-page | story/4-browser-session-tools/4-advance-page (deleted, merged) | merged |
 | 4-browser-session-tools | 5-fill-credential-field | story/4-browser-session-tools/5-fill-credential-field (deleted, merged) | merged |
-| 5-apply-orchestration | 1-apply-command | story/5-apply-orchestration/1-apply-command | code |
+| 5-apply-orchestration | 1-apply-command | story/5-apply-orchestration/1-apply-command | pr-open |
 | 5-apply-orchestration | 2-email-extractor | | approved |
 
 ## Decisions
@@ -153,4 +153,4 @@ status: <!-- unpublished | built | published | failed -->
 
 ## Next Action
 <!-- One sentence. What should happen next, and who does it (agent or user). -->
-Run /pr 5-apply-orchestration/1-apply-command to open its PR against feature/5-apply-orchestration (code done, all gates green, 95.34% coverage). Verified src/peddler/commands/apply.md is included automatically in the built wheel (uv build, no extra packaging config needed) — satisfies task 2's "wire into the package" requirement.
+Await review/merge of PR #20 (story/5-apply-orchestration/1-apply-command -> feature/5-apply-orchestration). On merge: mark story merged, delete story branch, then run /stage-a 5-apply-orchestration/2-email-extractor.
