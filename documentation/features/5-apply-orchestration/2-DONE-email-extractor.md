@@ -1,4 +1,4 @@
-# 2. Email Extractor
+# 2. DONE - Email Extractor
 
 ## What it does
 
