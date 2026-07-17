@@ -2,7 +2,7 @@
 
 ## Phase
 <!-- onboarding | setup | requirements | features | stories | stage-a | stage-b | pr | publish | done -->
-stage-a
+publish
 
 ## Project
 name: peddler
@@ -31,7 +31,7 @@ status: <!-- unpublished | built | published | failed -->
 | 2-credentials-log-book | feature/2-credentials-log-book | done |
 | 3-application-log | feature/3-application-log | done |
 | 4-browser-session-tools | feature/4-browser-session-tools | done |
-| 5-apply-orchestration | feature/5-apply-orchestration | stories-merged |
+| 5-apply-orchestration | feature/5-apply-orchestration | done |
 
 ## Stories
 | Feature | Story | Branch | Status |
@@ -153,4 +153,4 @@ status: <!-- unpublished | built | published | failed -->
 
 ## Next Action
 <!-- One sentence. What should happen next, and who does it (agent or user). -->
-PR #21 merged; all 2 stories for 5-apply-orchestration now merged -> feature is stories-merged. Run /pr 5-apply-orchestration to open the epic PR into main (will auto-merge if clean and CI-green) — this completes the whole project; /publish would follow.
+PR #22 (epic) auto-merged (mergeable clean, CI green) — feature 5-apply-orchestration fully done. All 5 features are now done and merged to main — nothing left to build. Consider /publish to build and release project/ to PyPI, or ask the user what's next.
