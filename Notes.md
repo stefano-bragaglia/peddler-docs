@@ -30,7 +30,7 @@ status: <!-- unpublished | built | published | failed -->
 | 1-mcp-server-framework | feature/1-mcp-server-framework | done |
 | 2-credentials-log-book | feature/2-credentials-log-book | done |
 | 3-application-log | feature/3-application-log | done |
-| 4-browser-session-tools | feature/4-browser-session-tools | branched |
+| 4-browser-session-tools | feature/4-browser-session-tools | stories-merged |
 | 5-apply-orchestration | | approved |
 
 ## Stories
@@ -49,7 +49,7 @@ status: <!-- unpublished | built | published | failed -->
 | 4-browser-session-tools | 2-session-lifecycle | story/4-browser-session-tools/2-session-lifecycle (deleted, merged) | merged |
 | 4-browser-session-tools | 3-fill-field | story/4-browser-session-tools/3-fill-field (deleted, merged) | merged |
 | 4-browser-session-tools | 4-advance-page | story/4-browser-session-tools/4-advance-page (deleted, merged) | merged |
-| 4-browser-session-tools | 5-fill-credential-field | story/4-browser-session-tools/5-fill-credential-field | pr-open |
+| 4-browser-session-tools | 5-fill-credential-field | story/4-browser-session-tools/5-fill-credential-field (deleted, merged) | merged |
 | 5-apply-orchestration | 1-apply-command | | approved |
 | 5-apply-orchestration | 2-email-extractor | | approved |
 
@@ -153,4 +153,4 @@ status: <!-- unpublished | built | published | failed -->
 
 ## Next Action
 <!-- One sentence. What should happen next, and who does it (agent or user). -->
-Await review/merge of PR #18 (story/4-browser-session-tools/5-fill-credential-field -> feature/4-browser-session-tools). On merge: mark story merged, delete story branch; this is the feature's last story, so feature becomes stories-merged — then run /pr 4-browser-session-tools to open the epic PR into main (will auto-merge if clean and CI-green).
+PR #18 merged; all 5 stories for 4-browser-session-tools now merged -> feature is stories-merged. Run /pr 4-browser-session-tools to open the epic PR into main (will auto-merge if clean and CI-green).
