@@ -145,6 +145,8 @@ status: <!-- unpublished | built | published | failed -->
 
 - 2026-07-17: Refined the `DONE - ` marker rule (`CLAUDE.md`, `.claude/commands/pr.md`): a story's own file (`<m>-<name>.md`) now gets the `DONE-` title/filename marker at story-merge time (story-tier `/pr`'s on-merge step), not held back until the whole epic merges to `main`. The epic file (`0-<name>.md`) still only gets marked at epic-merge time. Retroactively applied to `2-credentials-log-book`'s three already-merged stories (`1-log-book-storage`, `2-password-generator`, `3-credential-tools` → all renamed `<m>-DONE-<name>.md`, titles updated), for consistency with the feature-1 retroactive fix.
 
+- 2026-07-17: Added epic-tier PR auto-merge (`CLAUDE.md → Branching Model`/`Hard Rules`, `.claude/commands/pr.md`): `/pr <feature>` (epic → `main`) now merges itself automatically once the PR is conflict-free and the required CI check passes — an epic branch only ever replays already-individually-reviewed story diffs, so it doesn't need a fresh human review gate. If it doesn't merge cleanly (`main` diverged since the epic branched), the agent stops and asks the user to resolve it and merge via GitHub instead. Story-tier PRs (`/pr <feature>/<story>`) are unaffected — still always merged by the user manually, since that's where new code first appears.
+
 ## Next Action
 <!-- One sentence. What should happen next, and who does it (agent or user). -->
 Await review/merge of PR #9 (feature/2-credentials-log-book -> main). On merge: mark feature done, DONE-mark the epic file (0-credentials-log-book.md), then start feature 3-application-log (run /stage-a 3-application-log/1-record-application).
