@@ -44,7 +44,7 @@ status: <!-- unpublished | built | published | failed -->
 | 2-credentials-log-book | 2-password-generator | story/2-credentials-log-book/2-password-generator (deleted, merged) | merged |
 | 2-credentials-log-book | 3-credential-tools | story/2-credentials-log-book/3-credential-tools (deleted, merged) | merged |
 | 3-application-log | 1-record-application | story/3-application-log/1-record-application (deleted, merged) | merged |
-| 3-application-log | 2-query-application-history | | approved |
+| 3-application-log | 2-query-application-history | story/3-application-log/2-query-application-history | tests |
 | 4-browser-session-tools | 1-retry-policy | | approved |
 | 4-browser-session-tools | 2-session-lifecycle | | approved |
 | 4-browser-session-tools | 3-fill-field | | approved |
@@ -153,4 +153,4 @@ status: <!-- unpublished | built | published | failed -->
 
 ## Next Action
 <!-- One sentence. What should happen next, and who does it (agent or user). -->
-Run /stage-a 3-application-log/2-query-application-history. PR #11 (docstring backfill + ruff D-rule config) merged to main and pulled into feature/3-application-log (verified: full suite green, ruff clean with D-rules active).
+Run /stage-b 3-application-log/2-query-application-history (tests written on story/3-application-log/2-query-application-history; production code not yet written).
