@@ -29,7 +29,7 @@ status: <!-- unpublished | built | published | failed -->
 |---------|--------|--------|
 | 1-mcp-server-framework | feature/1-mcp-server-framework | done |
 | 2-credentials-log-book | feature/2-credentials-log-book | done |
-| 3-application-log | feature/3-application-log | stories-merged |
+| 3-application-log | feature/3-application-log | done |
 | 4-browser-session-tools | | approved |
 | 5-apply-orchestration | | approved |
 
@@ -153,4 +153,4 @@ status: <!-- unpublished | built | published | failed -->
 
 ## Next Action
 <!-- One sentence. What should happen next, and who does it (agent or user). -->
-PR #12 merged; all 2 stories for 3-application-log now merged -> feature is stories-merged. Run /pr 3-application-log to open the epic PR into main (will auto-merge if clean and CI-green).
+PR #13 (epic) auto-merged (mergeable clean, CI green) — feature 3-application-log fully done. Run /stage-a 4-browser-session-tools/1-retry-policy (next feature in build order).

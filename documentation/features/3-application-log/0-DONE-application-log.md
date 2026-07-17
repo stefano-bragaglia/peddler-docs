@@ -1,4 +1,4 @@
-# 3. Application Log
+# 3. DONE - Application Log
 
 ## Summary
 
