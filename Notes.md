@@ -153,4 +153,4 @@ status: <!-- unpublished | built | published | failed -->
 
 ## Next Action
 <!-- One sentence. What should happen next, and who does it (agent or user). -->
-PR #10 merged; story marked merged, branch deleted, DONE-marked. PR #11 (chore/rst-docstrings -> main) is still OPEN per GitHub as of this check — user said "approved and merged" but that doesn't match; flagged back to user to confirm which PR they meant / re-check #11. Once #11 actually merges: consider merging main into feature/3-application-log to pick up the new ruff D-rule config before that epic's own PR. Meanwhile, run /stage-a 3-application-log/2-query-application-history.
+Run /stage-a 3-application-log/2-query-application-history. PR #11 (docstring backfill + ruff D-rule config) merged to main and pulled into feature/3-application-log (verified: full suite green, ruff clean with D-rules active).
