@@ -21,6 +21,12 @@ status: <!-- unpublished | built | published | failed -->
 ## Open Questions
 <!-- Add a question when blocked. Clear (delete the line) when answered. -->
 <!-- Format: - [ ] Q: <question> / A: <answer> -->
+- [ ] Q: Where does the canonical CV Markdown file live — fixed configured-once path, or passed per invocation?
+- [ ] Q: Should Peddler keep a persistent application log (site, timestamp, outcome) separate from the credentials log book?
+- [ ] Q: Stuck Handling — does the browser stay headless (text-only guidance) or switch to visible so the user can intervene directly (e.g. CAPTCHA)?
+- [ ] Q: Is printing a generated sign-up password in plaintext CLI output acceptable, or should it only go to the credentials log book?
+- [ ] Q: Crash/timeout/network-drop mid-application — auto-retry, or hand off to Stuck Handling?
+- [ ] Q: Should there be a hard cap on the number of form pages/steps traversed before giving up?
 
 ## Features
 <!-- status: proposed | approved | branched | done -->
