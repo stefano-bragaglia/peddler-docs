@@ -49,7 +49,7 @@ status: <!-- unpublished | built | published | failed -->
 | 4-browser-session-tools | 2-session-lifecycle | story/4-browser-session-tools/2-session-lifecycle (deleted, merged) | merged |
 | 4-browser-session-tools | 3-fill-field | story/4-browser-session-tools/3-fill-field (deleted, merged) | merged |
 | 4-browser-session-tools | 4-advance-page | story/4-browser-session-tools/4-advance-page (deleted, merged) | merged |
-| 4-browser-session-tools | 5-fill-credential-field | | approved |
+| 4-browser-session-tools | 5-fill-credential-field | story/4-browser-session-tools/5-fill-credential-field | tests |
 | 5-apply-orchestration | 1-apply-command | | approved |
 | 5-apply-orchestration | 2-email-extractor | | approved |
 
@@ -153,4 +153,4 @@ status: <!-- unpublished | built | published | failed -->
 
 ## Next Action
 <!-- One sentence. What should happen next, and who does it (agent or user). -->
-Run /stage-a 4-browser-session-tools/5-fill-credential-field.
+Run /stage-b 4-browser-session-tools/5-fill-credential-field (tests written on story/4-browser-session-tools/5-fill-credential-field; production code not yet written). Extends fields.py with fill_credential_field, importing CredentialStore.get from feature 2 (already merged) — cross-feature dependency per the story's own doc.
