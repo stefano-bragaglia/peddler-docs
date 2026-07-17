@@ -1,4 +1,4 @@
-# 1. Apply Command
+# 1. DONE - Apply Command
 
 > Scope note: per `Description.md`'s architecture ("the LLM is the orchestrator ... the browser-automation tools
 > are dumb executors"), almost all of the behavior this feature covers (deciding what a page is asking for,
