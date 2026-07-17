@@ -41,7 +41,7 @@ status: <!-- unpublished | built | published | failed -->
 | 1-mcp-server-framework | 2-tool-registry | story/1-mcp-server-framework/2-tool-registry (deleted, merged) | merged |
 | 1-mcp-server-framework | 3-request-dispatch-and-lifecycle | story/1-mcp-server-framework/3-request-dispatch-and-lifecycle (deleted, merged) | merged |
 | 2-credentials-log-book | 1-log-book-storage | story/2-credentials-log-book/1-log-book-storage (deleted, merged) | merged |
-| 2-credentials-log-book | 2-password-generator | story/2-credentials-log-book/2-password-generator | pr-open |
+| 2-credentials-log-book | 2-password-generator | story/2-credentials-log-book/2-password-generator (deleted, merged) | merged |
 | 2-credentials-log-book | 3-credential-tools | | approved |
 | 3-application-log | 1-record-application | | approved |
 | 3-application-log | 2-query-application-history | | approved |
@@ -143,4 +143,4 @@ status: <!-- unpublished | built | published | failed -->
 
 ## Next Action
 <!-- One sentence. What should happen next, and who does it (agent or user). -->
-Await review/merge of PR #7 (story/2-credentials-log-book/2-password-generator -> feature/2-credentials-log-book). On merge: mark story merged, delete story branch, then run /stage-a 2-credentials-log-book/3-credential-tools.
+PR #7 merged. story/2-credentials-log-book/2-password-generator deleted (remote+local); feature/2-credentials-log-book pulled up to date. Run /stage-a 2-credentials-log-book/3-credential-tools (last story for this feature; once merged, feature becomes stories-merged and ready for /pr 2-credentials-log-book).
