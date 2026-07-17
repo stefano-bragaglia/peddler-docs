@@ -42,7 +42,7 @@ status: <!-- unpublished | built | published | failed -->
 | 1-mcp-server-framework | 3-request-dispatch-and-lifecycle | story/1-mcp-server-framework/3-request-dispatch-and-lifecycle (deleted, merged) | merged |
 | 2-credentials-log-book | 1-log-book-storage | story/2-credentials-log-book/1-log-book-storage (deleted, merged) | merged |
 | 2-credentials-log-book | 2-password-generator | story/2-credentials-log-book/2-password-generator (deleted, merged) | merged |
-| 2-credentials-log-book | 3-credential-tools | story/2-credentials-log-book/3-credential-tools | code |
+| 2-credentials-log-book | 3-credential-tools | story/2-credentials-log-book/3-credential-tools | pr-open |
 | 3-application-log | 1-record-application | | approved |
 | 3-application-log | 2-query-application-history | | approved |
 | 4-browser-session-tools | 1-retry-policy | | approved |
@@ -145,4 +145,4 @@ status: <!-- unpublished | built | published | failed -->
 
 ## Next Action
 <!-- One sentence. What should happen next, and who does it (agent or user). -->
-Run /pr 2-credentials-log-book/3-credential-tools to open its PR against feature/2-credentials-log-book (code done, all gates green, 99% coverage). Last story for this feature — once merged, feature becomes stories-merged and ready for /pr 2-credentials-log-book.
+Await review/merge of PR #8 (story/2-credentials-log-book/3-credential-tools -> feature/2-credentials-log-book). On merge: mark story merged, delete story branch; this is the feature's last story, so feature becomes stories-merged — then run /pr 2-credentials-log-book to open the epic PR into main.
