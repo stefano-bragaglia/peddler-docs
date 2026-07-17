@@ -31,7 +31,7 @@ status: <!-- unpublished | built | published | failed -->
 | 2-credentials-log-book | feature/2-credentials-log-book | done |
 | 3-application-log | feature/3-application-log | done |
 | 4-browser-session-tools | feature/4-browser-session-tools | done |
-| 5-apply-orchestration | | approved |
+| 5-apply-orchestration | feature/5-apply-orchestration | branched |
 
 ## Stories
 | Feature | Story | Branch | Status |
@@ -50,7 +50,7 @@ status: <!-- unpublished | built | published | failed -->
 | 4-browser-session-tools | 3-fill-field | story/4-browser-session-tools/3-fill-field (deleted, merged) | merged |
 | 4-browser-session-tools | 4-advance-page | story/4-browser-session-tools/4-advance-page (deleted, merged) | merged |
 | 4-browser-session-tools | 5-fill-credential-field | story/4-browser-session-tools/5-fill-credential-field (deleted, merged) | merged |
-| 5-apply-orchestration | 1-apply-command | | approved |
+| 5-apply-orchestration | 1-apply-command | story/5-apply-orchestration/1-apply-command | tests |
 | 5-apply-orchestration | 2-email-extractor | | approved |
 
 ## Decisions
@@ -153,4 +153,4 @@ status: <!-- unpublished | built | published | failed -->
 
 ## Next Action
 <!-- One sentence. What should happen next, and who does it (agent or user). -->
-PR #19 (epic) auto-merged (mergeable clean, CI green) — feature 4-browser-session-tools fully done. Run /stage-a 5-apply-orchestration/1-apply-command (last feature in build order).
+Run /stage-b 5-apply-orchestration/1-apply-command (tests written on story/5-apply-orchestration/1-apply-command; production code — src/peddler/commands/apply.md — not yet written). Note: this story's "acceptance criteria" are prose requirements on a command's Markdown body, checked by substring/regex assertions against src/peddler/commands/apply.md — no traditional logic module.
