@@ -2,9 +2,10 @@
 
 ## Functional Requirements
 
-1. The system provides a Claude CLI slash command `/apply <jd.md> <url>` that starts one application attempt for
-   one role at one URL.
-2. The system loads and parses the user's canonical CV (Markdown) and the job description at `<jd.md>` (Markdown)
+1. The system provides a Claude CLI slash command `/apply <cv.md> <jd.md> <url>` that starts one application
+   attempt for one role at one URL. The CV path is passed explicitly on every invocation (not a fixed, pre-
+   configured location), so the user can point at different CVs across invocations.
+2. The system loads and parses the CV at `<cv.md>` (Markdown) and the job description at `<jd.md>` (Markdown)
    before starting the browser session.
 3. The system exposes an MCP server to Claude CLI with the following tools, all operating on a single browser
    session kept alive across calls within one `/apply` invocation:
@@ -29,21 +30,29 @@
    pattern matching) to decide between:
    - **Success** — the page reads as an application confirmation. The system notifies the user of the successful
      application and to check their email for follow-ups from HR, then calls `close_session()` and stops.
-   - **Another form step** — the system repeats from requirement 5 for the new page.
+   - **Another form step** — the system repeats from requirement 5 for the new page. There is no hard cap on the
+     number of pages/steps traversed; the system relies on the LLM's own judgment to recognize a flow that isn't
+     converging (surfacing it as a Stuck Handling condition) rather than a fixed step counter.
 9. **Sign-up Handling**: when a login/sign-up page is detected:
    - The system looks for a contact email in the CV; if none is found, it asks the user for one.
    - It calls `read_credentials(site)`. If an entry exists, it notifies the user that stored credentials are being
      reused and logs in with them.
    - If no entry exists, it notifies the user that a new account is about to be created with that email, generates
-     a secure password (stdlib `secrets` module), communicates the password to the user, performs the sign-up,
-     and calls `write_credentials(site, username, password)` to store the new entry.
+     a secure password (stdlib `secrets` module), performs the sign-up, and calls
+     `write_credentials(site, username, password)` to store the new entry. The password itself is never printed
+     in the CLI conversation output — it exists only in the credentials log book.
 10. **Stuck Handling**: when the system encounters something it cannot resolve on its own (CAPTCHA, an ambiguous
-    field, an unresolvable validation error), it pauses and asks the user for guidance in the CLI. If the user's
-    guidance doesn't resolve it, the system aborts the application, reports the failure and its reason, calls
-    `close_session()`, and suggests the user complete the application themselves by opening a normal (visible,
-    non-headless) browser at the same URL.
+    field, an unresolvable validation error), it pauses and asks the user for guidance in the CLI. The browser
+    remains headless during this pause — guidance from the user is text-only (e.g. "try MM/YYYY format"); there
+    is no direct visual/interactive hand-off to the user at this stage. If the user's guidance doesn't resolve
+    it, the system aborts the application, reports the failure and its reason, calls `close_session()`, and
+    suggests the user complete the application themselves by opening a normal (visible, non-headless) browser at
+    the same URL — this is the only point at which a visible browser window appears.
 11. The credentials log book is a local file, read and written exclusively through the `read_credentials` /
     `write_credentials` tools — never directly by the LLM.
+12. The system maintains a separate, persistent local application log — one entry per `/apply` attempt, recording
+    the URL, a timestamp, and the outcome (success / aborted / stuck-unresolved) — giving the user a history of
+    applications and a basis for future duplicate-application checks.
 
 ## Non-Functional Requirements
 
@@ -53,10 +62,13 @@
   Approved exception: **Playwright** for headless browser automation, with **Selenium** as the agreed fallback if
   Playwright doesn't work out. The MCP server itself is implemented with stdlib alone (JSON-RPC over stdio).
 - **Security**: the LLM never has direct file access to the credentials log book — only the two dedicated tools
-  do. Generated passwords use a cryptographically secure source (stdlib `secrets`). Encrypting the log book at
-  rest is explicitly deferred (not a v1 requirement — see `Description.md → Out of Scope`).
+  do. Generated passwords use a cryptographically secure source (stdlib `secrets`) and are never echoed into the
+  CLI conversation output — they exist only in the log book. Encrypting the log book at rest is explicitly
+  deferred (not a v1 requirement — see `Description.md → Out of Scope`).
 - **Reliability**: browser automation must surface page/tool errors back to the LLM rather than crashing the
-  process outright, so the LLM can retry or hand off to Stuck Handling.
+  process outright, so the LLM can retry or hand off to Stuck Handling. On a browser crash, timeout, or network
+  drop specifically, the system auto-retries the failed operation up to 3 attempts with a short backoff before
+  falling back to Stuck Handling.
 - **Scope boundaries** (carried over from `Description.md`): no CAPTCHA solving, no anti-bot/stealth evasion
   beyond normal honest form-filling, no cover-letter generation.
 - **Concurrency**: v1 supports one active application session (one open browser) at a time per `/apply`
@@ -67,13 +79,13 @@
 The user interacts entirely through Claude CLI, in a single conversational session per application attempt.
 
 ```
-> /apply ~/jobs/acme-backend-swe/jd.md https://acme.example.com/careers/apply/1234
+> /apply ~/cv.md ~/jobs/acme-backend-swe/jd.md https://acme.example.com/careers/apply/1234
 
 Peddler: Reading job description and your CV...
 Peddler: Opening https://acme.example.com/careers/apply/1234 ...
 Peddler: This looks like a sign-up page. No stored credentials found for acme.example.com.
-         I'll create an account using <email from CV>. Generated password: ****************
-         (also saved to the credentials log book)
+         I'll create an account using <email from CV>. A secure password has been generated
+         and saved to the credentials log book (not shown here).
 Peddler: Signed up, now on the application form (step 1 of 3).
 Peddler: Filling: Full name, Email, Phone, Years of experience, Cover letter summary...
 Peddler: Step 1 submitted. Now on step 2 of 3 (skills & experience)...
@@ -98,8 +110,10 @@ Peddler: Unable to proceed. Aborting this application.
 
 1. *Q: Where does the canonical CV Markdown file live — a fixed, configured-once path (e.g. `~/.peddler/cv.md`),
    or is it passed explicitly per invocation (similar to `jd.md`)?*
+   _A: Passed explicitly per invocation, like `jd.md`. The trigger becomes `/apply <cv.md> <jd.md> <url>`._
 2. *Q: Should Peddler keep a persistent application log (site, timestamp, outcome: success/aborted) separate from
    the credentials log book, so a user can see application history / avoid re-applying to the same URL?*
+   _A: Yes — keep a separate local application log recording every `/apply` attempt (URL, timestamp, outcome)._
 
 ## Questions: Interaction
 
@@ -107,13 +121,27 @@ Peddler: Unable to proceed. Aborting this application.
    can only respond with text, e.g. "try MM/YYYY format"), or does it switch to a visible window at that point so
    the user can see/interact with the actual page directly — which would be necessary for something like solving
    a CAPTCHA themselves?*
+   _A: Stays headless — guidance is text-only during the pause. The browser only ever becomes visible in the
+   fallback path already described (a fresh, visible browser opened for the user after an unresolved abort), not
+   during the pause-and-ask step itself. This means a CAPTCHA can't actually be solved during the pause — it
+   will typically end up as an unresolved abort that falls through to the visible-browser fallback._
 2. *Q: Is it acceptable for a generated sign-up password to be printed in plaintext in the CLI conversation
    output, or should it instead be written only to the credentials log book and never echoed into the chat
    transcript?*
+   _A: Never echo it. The password is written straight to the credentials log book via `write_credentials` and
+   is not printed in the chat transcript, since that transcript may be logged/persisted elsewhere less securely
+   than the log book itself._
 
 ## Questions: Edge Cases
 
 1. *Q: What should happen if the browser/page crashes, times out, or the network drops mid-application — treat
    it as an automatic retry, or immediately hand off to Stuck Handling (pause and ask the user)?*
+   _A: Auto-retry first. On a crash/timeout/network-drop, the system retries the failed operation (re-navigate /
+   reopen the session as needed) up to 3 attempts with a short backoff between them; only after retries are
+   exhausted does it hand off to Stuck Handling. (3 attempts is a starting default — adjust in `/features` or
+   `/stories` if it proves too aggressive or too lax in practice.)_
 2. *Q: Should there be a hard cap on the number of form pages/steps the system will traverse before giving up
    (to guard against an infinite loop if success detection never triggers), and if so, roughly how many steps?*
+   _A: No hard cap. The system relies on the LLM's own judgment across steps rather than a fixed page limit;
+   if the flow genuinely seems to be going nowhere, that's expected to surface as a Stuck Handling condition
+   through the LLM's own reasoning rather than a hardcoded counter._

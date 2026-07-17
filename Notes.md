@@ -2,7 +2,7 @@
 
 ## Phase
 <!-- onboarding | setup | requirements | features | stories | stage-a | stage-b | pr | publish | done -->
-requirements
+features
 
 ## Project
 name: peddler
@@ -21,12 +21,6 @@ status: <!-- unpublished | built | published | failed -->
 ## Open Questions
 <!-- Add a question when blocked. Clear (delete the line) when answered. -->
 <!-- Format: - [ ] Q: <question> / A: <answer> -->
-- [ ] Q: Where does the canonical CV Markdown file live — fixed configured-once path, or passed per invocation?
-- [ ] Q: Should Peddler keep a persistent application log (site, timestamp, outcome) separate from the credentials log book?
-- [ ] Q: Stuck Handling — does the browser stay headless (text-only guidance) or switch to visible so the user can intervene directly (e.g. CAPTCHA)?
-- [ ] Q: Is printing a generated sign-up password in plaintext CLI output acceptable, or should it only go to the credentials log book?
-- [ ] Q: Crash/timeout/network-drop mid-application — auto-retry, or hand off to Stuck Handling?
-- [ ] Q: Should there be a hard cap on the number of form pages/steps traversed before giving up?
 
 ## Features
 <!-- status: proposed | approved | branched | done -->
@@ -49,7 +43,13 @@ status: <!-- unpublished | built | published | failed -->
   pushed. `project/` scaffolded as a `src/`-layout uv package (Python 3.14, hatchling build backend) with
   ruff/radon/pytest gates wired into a pre-commit hook and GitHub Actions CI (pytest exit code 5 — no tests
   collected — tolerated pre-stage-a, not treated as a gate failure).
+- 2026-07-17: Requirements.md complete, all 6 open questions answered: CV path is passed per invocation
+  (`/apply <cv.md> <jd.md> <url>`); a separate persistent application log is kept alongside the credentials log
+  book; Stuck Handling keeps the browser headless (text-only guidance), only going visible after an unresolved
+  abort; generated passwords are never echoed into the CLI transcript, only written to the credentials log book;
+  crashes/timeouts/network drops auto-retry up to 3 attempts with backoff before falling back to Stuck Handling;
+  no hard cap on form-page/step count, relying on LLM judgment instead.
 
 ## Next Action
 <!-- One sentence. What should happen next, and who does it (agent or user). -->
-Run /requirements to derive documentation/Requirements.md from Description.md.
+Run /features to break Requirements.md into features/epics.
