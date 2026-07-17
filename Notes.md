@@ -47,7 +47,7 @@ status: <!-- unpublished | built | published | failed -->
 | 3-application-log | 2-query-application-history | story/3-application-log/2-query-application-history (deleted, merged) | merged |
 | 4-browser-session-tools | 1-retry-policy | story/4-browser-session-tools/1-retry-policy (deleted, merged) | merged |
 | 4-browser-session-tools | 2-session-lifecycle | story/4-browser-session-tools/2-session-lifecycle (deleted, merged) | merged |
-| 4-browser-session-tools | 3-fill-field | story/4-browser-session-tools/3-fill-field | tests |
+| 4-browser-session-tools | 3-fill-field | story/4-browser-session-tools/3-fill-field | code |
 | 4-browser-session-tools | 4-advance-page | | approved |
 | 4-browser-session-tools | 5-fill-credential-field | | approved |
 | 5-apply-orchestration | 1-apply-command | | approved |
@@ -153,4 +153,4 @@ status: <!-- unpublished | built | published | failed -->
 
 ## Next Action
 <!-- One sentence. What should happen next, and who does it (agent or user). -->
-Run /stage-b 4-browser-session-tools/3-fill-field (tests written on story/4-browser-session-tools/3-fill-field; production code not yet written). Tests access session._session directly (same pattern as story 2's own tests) rather than a new public accessor — Stage B can read that private attribute from fields.py too, avoiding touching session.py at all for this story.
+Run /pr 4-browser-session-tools/3-fill-field to open its PR against feature/4-browser-session-tools (code done, all gates green, 94.90% coverage). fields.py reads session._session directly rather than adding a public accessor — kept session.py (story 2, already merged) untouched.
