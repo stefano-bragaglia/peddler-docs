@@ -50,7 +50,7 @@ status: <!-- unpublished | built | published | failed -->
 | 4-browser-session-tools | 3-fill-field | story/4-browser-session-tools/3-fill-field (deleted, merged) | merged |
 | 4-browser-session-tools | 4-advance-page | story/4-browser-session-tools/4-advance-page (deleted, merged) | merged |
 | 4-browser-session-tools | 5-fill-credential-field | story/4-browser-session-tools/5-fill-credential-field (deleted, merged) | merged |
-| 5-apply-orchestration | 1-apply-command | story/5-apply-orchestration/1-apply-command | tests |
+| 5-apply-orchestration | 1-apply-command | story/5-apply-orchestration/1-apply-command | code |
 | 5-apply-orchestration | 2-email-extractor | | approved |
 
 ## Decisions
@@ -153,4 +153,4 @@ status: <!-- unpublished | built | published | failed -->
 
 ## Next Action
 <!-- One sentence. What should happen next, and who does it (agent or user). -->
-Run /stage-b 5-apply-orchestration/1-apply-command (tests written on story/5-apply-orchestration/1-apply-command; production code — src/peddler/commands/apply.md — not yet written). Note: this story's "acceptance criteria" are prose requirements on a command's Markdown body, checked by substring/regex assertions against src/peddler/commands/apply.md — no traditional logic module.
+Run /pr 5-apply-orchestration/1-apply-command to open its PR against feature/5-apply-orchestration (code done, all gates green, 95.34% coverage). Verified src/peddler/commands/apply.md is included automatically in the built wheel (uv build, no extra packaging config needed) — satisfies task 2's "wire into the package" requirement.
