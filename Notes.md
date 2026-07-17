@@ -2,7 +2,7 @@
 
 ## Phase
 <!-- onboarding | setup | requirements | features | stories | stage-a | stage-b | pr | publish | done -->
-stories
+stage-a
 
 ## Project
 name: peddler
@@ -36,6 +36,21 @@ status: <!-- unpublished | built | published | failed -->
 | Feature | Story | Branch | Status |
 |---------|-------|--------|--------|
 <!-- status: proposed | approved | tests | code | pr-open | merged -->
+| 1-mcp-server-framework | 1-stdio-transport | | approved |
+| 1-mcp-server-framework | 2-tool-registry | | approved |
+| 1-mcp-server-framework | 3-request-dispatch-and-lifecycle | | approved |
+| 2-credentials-log-book | 1-log-book-storage | | approved |
+| 2-credentials-log-book | 2-password-generator | | approved |
+| 2-credentials-log-book | 3-credential-tools | | approved |
+| 3-application-log | 1-record-application | | approved |
+| 3-application-log | 2-query-application-history | | approved |
+| 4-browser-session-tools | 1-retry-policy | | approved |
+| 4-browser-session-tools | 2-session-lifecycle | | approved |
+| 4-browser-session-tools | 3-fill-field | | approved |
+| 4-browser-session-tools | 4-advance-page | | approved |
+| 4-browser-session-tools | 5-fill-credential-field | | approved |
+| 5-apply-orchestration | 1-apply-command | | approved |
+| 5-apply-orchestration | 2-email-extractor | | approved |
 
 ## Decisions
 <!-- Key choices made and why. Future agents use this to avoid re-litigating. -->
@@ -76,7 +91,12 @@ status: <!-- unpublished | built | published | failed -->
   `main` (gate: every story `merged`, tightened from the old `code` gate; on merge: feature `done`). Added
   `pr-open` to both the Features and Stories status enums (it was already used by `/pr` but missing from the
   documented enum).
+- 2026-07-17: All 15 stories approved as drafted. Fixed `.claude/commands/stories.md` (vault-local, untracked)
+  to match the two-tier branching model: step 2's now-pointless `project/` checkout removed (stories are
+  documentation-only, and checking out `feature/<feature>` there could have disrupted an in-progress story
+  branch elsewhere); step 5 no longer assigns `feature/<feature>` as a story's branch — that field stays blank
+  until `/stage-a` creates the story's own `story/<feature>/<story>` branch.
 
 ## Next Action
 <!-- One sentence. What should happen next, and who does it (agent or user). -->
-Run /stories review/approval, then /stage-a for each story in numbered order, starting with 1-mcp-server-framework/1-stdio-transport.
+All 15 stories approved. Run /stage-a 1-mcp-server-framework/1-stdio-transport, then proceed one story at a time in numbered order.
