@@ -40,7 +40,7 @@ status: <!-- unpublished | built | published | failed -->
 | 1-mcp-server-framework | 1-stdio-transport | story/1-mcp-server-framework/1-stdio-transport (deleted, merged) | merged |
 | 1-mcp-server-framework | 2-tool-registry | story/1-mcp-server-framework/2-tool-registry (deleted, merged) | merged |
 | 1-mcp-server-framework | 3-request-dispatch-and-lifecycle | story/1-mcp-server-framework/3-request-dispatch-and-lifecycle (deleted, merged) | merged |
-| 2-credentials-log-book | 1-log-book-storage | story/2-credentials-log-book/1-log-book-storage | code |
+| 2-credentials-log-book | 1-log-book-storage | story/2-credentials-log-book/1-log-book-storage | pr-open |
 | 2-credentials-log-book | 2-password-generator | | approved |
 | 2-credentials-log-book | 3-credential-tools | | approved |
 | 3-application-log | 1-record-application | | approved |
@@ -135,6 +135,8 @@ status: <!-- unpublished | built | published | failed -->
   `features`, `stories`, `stage-a`, `stage-b`, `pr` (both story- and epic-tier, including the on-merge steps),
   `setup`, `publish`.
 
+- 2026-07-17: `/pr 2-credentials-log-book/1-log-book-storage` found `feature/2-credentials-log-book` had never been pushed to origin (created locally back at `/features`, before any story existed to push it) — `gh pr create` failed with "Base ref must be a branch" until it was pushed. Pushed it before opening the story PR. Same is likely true of the other three not-yet-started epic branches (`3-application-log`, `4-browser-session-tools`, `5-apply-orchestration`); their first story PR will hit the same thing and should just push the epic branch first, same as here — not a bug, just a step worth expecting.
+
 ## Next Action
 <!-- One sentence. What should happen next, and who does it (agent or user). -->
-Run /pr 2-credentials-log-book/1-log-book-storage to open its PR against feature/2-credentials-log-book (code done, all gates green, 100% coverage).
+Await review/merge of PR #6 (story/2-credentials-log-book/1-log-book-storage -> feature/2-credentials-log-book). On merge: mark story merged, delete story branch, then run /stage-a 2-credentials-log-book/2-password-generator.
