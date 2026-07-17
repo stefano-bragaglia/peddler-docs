@@ -1,5 +1,8 @@
-# Project Documentation
+# Peddler — Vault
 
-This file will hold the documentation for this specific project. Content is
-filled in by the agent once the project's scope is known (starting with
-`/describe`).
+![Peddler logo](logo.png)
+
+Private vault: notes, decisions, and SDLC harness for the **Peddler** project. The code itself lives in the
+separate, public `project/` repo.
+
+See `Notes.md` for current phase and `documentation/` for specs.
