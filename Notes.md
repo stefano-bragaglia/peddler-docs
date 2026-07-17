@@ -46,7 +46,7 @@ status: <!-- unpublished | built | published | failed -->
 | 3-application-log | 1-record-application | story/3-application-log/1-record-application (deleted, merged) | merged |
 | 3-application-log | 2-query-application-history | story/3-application-log/2-query-application-history (deleted, merged) | merged |
 | 4-browser-session-tools | 1-retry-policy | story/4-browser-session-tools/1-retry-policy (deleted, merged) | merged |
-| 4-browser-session-tools | 2-session-lifecycle | story/4-browser-session-tools/2-session-lifecycle | tests |
+| 4-browser-session-tools | 2-session-lifecycle | story/4-browser-session-tools/2-session-lifecycle | code |
 | 4-browser-session-tools | 3-fill-field | | approved |
 | 4-browser-session-tools | 4-advance-page | | approved |
 | 4-browser-session-tools | 5-fill-credential-field | | approved |
@@ -153,4 +153,4 @@ status: <!-- unpublished | built | published | failed -->
 
 ## Next Action
 <!-- One sentence. What should happen next, and who does it (agent or user). -->
-Run /stage-b 4-browser-session-tools/2-session-lifecycle (tests written on story/4-browser-session-tools/2-session-lifecycle; production code not yet written). Note: this story needs the `playwright` dependency, pre-approved in Requirements.md but not yet added to project/pyproject.toml — add it during Stage B (`uv add playwright`).
+Run /pr 4-browser-session-tools/2-session-lifecycle to open its PR against feature/4-browser-session-tools (code done, all gates green, 94.64% coverage). `playwright` added as a dependency (uv add playwright, pre-approved in Requirements.md); browser binaries not installed (playwright install) — not needed yet since this story's tests use a fake page, only real end-to-end usage (likely feature 5) will need them.
