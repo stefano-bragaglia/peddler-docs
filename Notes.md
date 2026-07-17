@@ -2,7 +2,7 @@
 
 ## Phase
 <!-- onboarding | setup | requirements | features | stories | stage-a | stage-b | pr | publish | done -->
-stage-b
+stage-a
 
 ## Project
 name: peddler
@@ -23,10 +23,11 @@ status: <!-- unpublished | built | published | failed -->
 <!-- Format: - [ ] Q: <question> / A: <answer> -->
 
 ## Features
-<!-- status: proposed | approved | branched | pr-open | done -->
+<!-- status: proposed | approved | branched | stories-merged | pr-open | done -->
+<!-- stories-merged: every story for this feature is `merged`, but the epic PR into main isn't open yet -->
 | Feature | Branch | Status |
 |---------|--------|--------|
-| 1-mcp-server-framework | feature/1-mcp-server-framework | branched |
+| 1-mcp-server-framework | feature/1-mcp-server-framework | done |
 | 2-credentials-log-book | feature/2-credentials-log-book | branched |
 | 3-application-log | feature/3-application-log | branched |
 | 4-browser-session-tools | feature/4-browser-session-tools | branched |
@@ -36,9 +37,9 @@ status: <!-- unpublished | built | published | failed -->
 | Feature | Story | Branch | Status |
 |---------|-------|--------|--------|
 <!-- status: proposed | approved | tests | code | pr-open | merged -->
-| 1-mcp-server-framework | 1-stdio-transport | story/1-mcp-server-framework/1-stdio-transport | tests |
-| 1-mcp-server-framework | 2-tool-registry | | approved |
-| 1-mcp-server-framework | 3-request-dispatch-and-lifecycle | | approved |
+| 1-mcp-server-framework | 1-stdio-transport | story/1-mcp-server-framework/1-stdio-transport (deleted, merged) | merged |
+| 1-mcp-server-framework | 2-tool-registry | story/1-mcp-server-framework/2-tool-registry (deleted, merged) | merged |
+| 1-mcp-server-framework | 3-request-dispatch-and-lifecycle | story/1-mcp-server-framework/3-request-dispatch-and-lifecycle (deleted, merged) | merged |
 | 2-credentials-log-book | 1-log-book-storage | | approved |
 | 2-credentials-log-book | 2-password-generator | | approved |
 | 2-credentials-log-book | 3-credential-tools | | approved |
@@ -96,7 +97,35 @@ status: <!-- unpublished | built | published | failed -->
   documentation-only, and checking out `feature/<feature>` there could have disrupted an in-progress story
   branch elsewhere); step 5 no longer assigns `feature/<feature>` as a story's branch — that field stays blank
   until `/stage-a` creates the story's own `story/<feature>/<story>` branch.
+- 2026-07-17: Fixed `project/.github/workflows/ci.yml`, which predated the two-tier branching model: its
+  `pull_request` trigger only matched `branches: [main]`, so CI never ran on story-tier PRs (into
+  `feature/<epic>`) — confirmed dead via `gh pr checks` on PR #1 showing no checks. Added `feature/**` to the
+  `pull_request` branches filter, plus a `push` trigger on `story/**` so failures surface while iterating on
+  Stage A/B, before a PR even opens. Committed directly onto the in-flight story branch
+  `story/1-mcp-server-framework/1-stdio-transport` (unrelated to that story's own code, but the smallest way to
+  verify the fix live and have it land in the epic branch on merge) rather than opening a separate infra PR.
+- 2026-07-17: Added a `stories-merged` status to the Features enum (`CLAUDE.md`, `templates/Notes.template.md`,
+  `.claude/commands/pr.md`), between `branched` and `pr-open`. Previously `branched` covered both "stories still
+  in progress" and "every story merged, epic PR not opened yet" — indistinguishable without manually
+  cross-checking every story row. `/pr <feature>/<story>`'s on-merge step now sets the feature to
+  `stories-merged` once its last story merges; `/pr <feature>`'s epic-tier step 2 now gates on that status
+  directly instead of re-deriving it from the Stories table each time.
+- 2026-07-17: Applied branch protection to `peddler`'s (code repo) `main`: require PR before merge (0 required
+  approvals — solo project), require the `test` status check up to date, block force-push/deletion,
+  `enforce_admins: false`. `peddler-docs` (vault repo, private) cannot get any equivalent protection — both
+  classic branch protection and rulesets return 403 for private repos on the free GitHub plan; accepted as a
+  known limitation (fix would mean upgrading to Pro or making the vault repo public). Updated
+  `.claude/commands/setup.md` (vault-local, gitignored) so future `/setup` runs configure both this branch
+  protection and the corrected two-tier CI trigger (`pull_request` on `main`+`feature/**`, `push` on
+  `story/**`) up front, instead of needing a manual fix later like this one did.
+- 2026-07-17: PR #2 (`feature/1-mcp-server-framework` → `main`, merged via GitHub UI) landed one story early —
+  only `1-stdio-transport` was `merged` at the time; `2-tool-registry` and `3-request-dispatch-and-lifecycle`
+  were still `approved`. This jumped `/pr <feature>`'s gate (all stories `merged`). No technical harm: the
+  epic branch's tip is an ancestor of `main`'s new tip, so finishing stories 2/3 on the same epic branch and
+  opening a later PR into `main` will diff cleanly, showing only their new work. Feature status stays
+  `branched` (not `done`) until that real final PR merges — `main` having story 1's code early doesn't count
+  as the feature being done. No revert applied; decided to just continue forward.
 
 ## Next Action
 <!-- One sentence. What should happen next, and who does it (agent or user). -->
-Run /stage-b 1-mcp-server-framework/1-stdio-transport.
+Feature 1-mcp-server-framework is fully done and merged to main. Run /stage-a 2-credentials-log-book/1-log-book-storage (its stories are already approved; next feature in build order).

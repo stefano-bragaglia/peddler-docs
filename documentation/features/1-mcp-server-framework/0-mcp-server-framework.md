@@ -1,4 +1,4 @@
-# 1. MCP Server & Tool Framework
+# 1. DONE - MCP Server & Tool Framework
 
 ## Summary
 

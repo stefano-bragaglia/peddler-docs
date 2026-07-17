@@ -1,4 +1,4 @@
-# 2. Tool Registry
+# 2. DONE - Tool Registry
 
 ## What it does
 
