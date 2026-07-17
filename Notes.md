@@ -29,7 +29,7 @@ status: <!-- unpublished | built | published | failed -->
 |---------|--------|--------|
 | 1-mcp-server-framework | feature/1-mcp-server-framework | done |
 | 2-credentials-log-book | feature/2-credentials-log-book | done |
-| 3-application-log | | approved |
+| 3-application-log | feature/3-application-log | branched |
 | 4-browser-session-tools | | approved |
 | 5-apply-orchestration | | approved |
 
@@ -43,7 +43,7 @@ status: <!-- unpublished | built | published | failed -->
 | 2-credentials-log-book | 1-log-book-storage | story/2-credentials-log-book/1-log-book-storage (deleted, merged) | merged |
 | 2-credentials-log-book | 2-password-generator | story/2-credentials-log-book/2-password-generator (deleted, merged) | merged |
 | 2-credentials-log-book | 3-credential-tools | story/2-credentials-log-book/3-credential-tools (deleted, merged) | merged |
-| 3-application-log | 1-record-application | | approved |
+| 3-application-log | 1-record-application | story/3-application-log/1-record-application | tests |
 | 3-application-log | 2-query-application-history | | approved |
 | 4-browser-session-tools | 1-retry-policy | | approved |
 | 4-browser-session-tools | 2-session-lifecycle | | approved |
@@ -151,4 +151,4 @@ status: <!-- unpublished | built | published | failed -->
 
 ## Next Action
 <!-- One sentence. What should happen next, and who does it (agent or user). -->
-Run /stage-a 3-application-log/1-record-application (feature 2-credentials-log-book fully done and merged to main).
+Run /stage-b 3-application-log/1-record-application (tests written on story/3-application-log/1-record-application; production code not yet written).
