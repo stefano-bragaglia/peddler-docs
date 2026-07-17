@@ -10,7 +10,7 @@ python: 3.14
 
 ## Repos
 <!-- Filled in during /setup -->
-docs (vault root): https://github.com/stefano-bragaglia/peddler-docs, private
+docs (vault root): https://github.com/stefano-bragaglia/peddler-docs, public
 code (project/): https://github.com/stefano-bragaglia/peddler, public
 
 ## Publish
@@ -156,6 +156,8 @@ status: <!-- unpublished | built | published | failed -->
 - 2026-07-17: Restructured `project/README.md` to match the user's usual project README style (referenced `stefano-bragaglia/xhail2` and `stefano-bragaglia/pRETE`): logo directly under the title, badge row (CI + dynamic GitHub-license badge now; PyPI version/Python-versions badges still deferred to `/publish`, since those are PyPI-sourced and would show "not found" pre-publish), a Background section on the LLM-orchestrator/dumb-executor split, a Core tools table, the full sample conversation from `Requirements.md → User Interaction Model` as the Usage example, a Project layout tree, and a Dev section listing the actual gate commands. Pushed as an additional commit onto the still-open PR #23 rather than a new PR.
 
 - 2026-07-17: PR #23 was approved and merged, but only its first commit (`63e9f36`, usage/badges fix) landed on `main` — the two later commits (README restructure, Design Rationale/Known Limitations), confirmed pushed to that same branch beforehand, never made it in; cause unclear (possibly a stale PR page merged before the later pushes were visible). Nothing was lost: the local `chore/readme-updates` branch still had all 3 commits (git refused to delete it, correctly detecting it wasn't fully merged) — recovered as a new branch `chore/readme-restructure` off current `main`, opened as PR #24, which this time merged correctly (verified: merge commit's parent matches the branch's true tip). The restructure's badge-row rewrite (matching the reference READMEs' minimal CI+License style) inadvertently dropped the Python-version and Ruff badges added earlier — restored via PR #25 (`chore/readme-badges` → `main`).
+
+- 2026-07-18: Made the vault-root repo (`peddler-docs`) public at the user's request (`gh repo edit --visibility public`). Scanned the full commit history first for accidentally-committed secrets (API keys, tokens, real passwords) — clean, only design-doc references to the credentials-handling mechanism itself, no actual secrets. Now that it's public, classic branch protection on its `main` becomes possible (previously blocked by GitHub's free-plan private-repo restriction, per the `/setup` decision from earlier) — not applied, since the user didn't ask for it; flagged in case they want it later.
 
 ## Next Action
 <!-- One sentence. What should happen next, and who does it (agent or user). -->
