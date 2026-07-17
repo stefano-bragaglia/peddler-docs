@@ -1,4 +1,4 @@
-# 2. Password Generator
+# 2. DONE - Password Generator
 
 ## What it does
 

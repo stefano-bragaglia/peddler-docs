@@ -1,4 +1,4 @@
-# 1. Log Book Storage
+# 1. DONE - Log Book Storage
 
 ## What it does
 

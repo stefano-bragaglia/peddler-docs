@@ -28,7 +28,7 @@ status: <!-- unpublished | built | published | failed -->
 | Feature | Branch | Status |
 |---------|--------|--------|
 | 1-mcp-server-framework | feature/1-mcp-server-framework | done |
-| 2-credentials-log-book | feature/2-credentials-log-book | branched |
+| 2-credentials-log-book | feature/2-credentials-log-book | stories-merged |
 | 3-application-log | | approved |
 | 4-browser-session-tools | | approved |
 | 5-apply-orchestration | | approved |
@@ -42,7 +42,7 @@ status: <!-- unpublished | built | published | failed -->
 | 1-mcp-server-framework | 3-request-dispatch-and-lifecycle | story/1-mcp-server-framework/3-request-dispatch-and-lifecycle (deleted, merged) | merged |
 | 2-credentials-log-book | 1-log-book-storage | story/2-credentials-log-book/1-log-book-storage (deleted, merged) | merged |
 | 2-credentials-log-book | 2-password-generator | story/2-credentials-log-book/2-password-generator (deleted, merged) | merged |
-| 2-credentials-log-book | 3-credential-tools | story/2-credentials-log-book/3-credential-tools | pr-open |
+| 2-credentials-log-book | 3-credential-tools | story/2-credentials-log-book/3-credential-tools (deleted, merged) | merged |
 | 3-application-log | 1-record-application | | approved |
 | 3-application-log | 2-query-application-history | | approved |
 | 4-browser-session-tools | 1-retry-policy | | approved |
@@ -143,6 +143,8 @@ status: <!-- unpublished | built | published | failed -->
 
 - 2026-07-17: Found the vault-root repo (docs repo, `peddler-docs`) had never been pushed — 12 commits sat local-only despite `CLAUDE.md`'s Notes.md Contract requiring every command to commit `Notes.md`/`documentation/` changes there. Every command's "commit to the vault-root repo" instruction never said to push, so it never happened. Fixed the harness (`CLAUDE.md → Notes.md Contract`, and the commit step in every command that touches `Notes.md`/`documentation/`: `describe`, `requirements`, `features`, `stories`, `stage-a`, `stage-b`, `pr` — all four commit points, `setup`, `publish`) to require `git push` immediately after every such commit, no exceptions. Pushed the 12 pending commits to sync `origin/main` on `peddler-docs` now.
 
+- 2026-07-17: Refined the `DONE - ` marker rule (`CLAUDE.md`, `.claude/commands/pr.md`): a story's own file (`<m>-<name>.md`) now gets the `DONE-` title/filename marker at story-merge time (story-tier `/pr`'s on-merge step), not held back until the whole epic merges to `main`. The epic file (`0-<name>.md`) still only gets marked at epic-merge time. Retroactively applied to `2-credentials-log-book`'s three already-merged stories (`1-log-book-storage`, `2-password-generator`, `3-credential-tools` → all renamed `<m>-DONE-<name>.md`, titles updated), for consistency with the feature-1 retroactive fix.
+
 ## Next Action
 <!-- One sentence. What should happen next, and who does it (agent or user). -->
-Await review/merge of PR #8 (story/2-credentials-log-book/3-credential-tools -> feature/2-credentials-log-book). On merge: mark story merged, delete story branch; this is the feature's last story, so feature becomes stories-merged — then run /pr 2-credentials-log-book to open the epic PR into main.
+PR #8 merged. story/2-credentials-log-book/3-credential-tools deleted (remote+local); feature/2-credentials-log-book pulled up to date. All 3 stories merged -> feature is now stories-merged. Run /pr 2-credentials-log-book to open the epic PR into main.
