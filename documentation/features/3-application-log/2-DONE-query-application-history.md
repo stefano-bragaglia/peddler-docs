@@ -1,4 +1,4 @@
-# 2. Query Application History
+# 2. DONE - Query Application History
 
 ## What it does
 
