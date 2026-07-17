@@ -28,7 +28,7 @@ status: <!-- unpublished | built | published | failed -->
 | Feature | Branch | Status |
 |---------|--------|--------|
 | 1-mcp-server-framework | feature/1-mcp-server-framework | done |
-| 2-credentials-log-book | feature/2-credentials-log-book | stories-merged |
+| 2-credentials-log-book | feature/2-credentials-log-book | pr-open |
 | 3-application-log | | approved |
 | 4-browser-session-tools | | approved |
 | 5-apply-orchestration | | approved |
@@ -147,4 +147,4 @@ status: <!-- unpublished | built | published | failed -->
 
 ## Next Action
 <!-- One sentence. What should happen next, and who does it (agent or user). -->
-PR #8 merged. story/2-credentials-log-book/3-credential-tools deleted (remote+local); feature/2-credentials-log-book pulled up to date. All 3 stories merged -> feature is now stories-merged. Run /pr 2-credentials-log-book to open the epic PR into main.
+Await review/merge of PR #9 (feature/2-credentials-log-book -> main). On merge: mark feature done, DONE-mark the epic file (0-credentials-log-book.md), then start feature 3-application-log (run /stage-a 3-application-log/1-record-application).
