@@ -43,7 +43,7 @@ status: <!-- unpublished | built | published | failed -->
 | 2-credentials-log-book | 1-log-book-storage | story/2-credentials-log-book/1-log-book-storage (deleted, merged) | merged |
 | 2-credentials-log-book | 2-password-generator | story/2-credentials-log-book/2-password-generator (deleted, merged) | merged |
 | 2-credentials-log-book | 3-credential-tools | story/2-credentials-log-book/3-credential-tools (deleted, merged) | merged |
-| 3-application-log | 1-record-application | story/3-application-log/1-record-application | code |
+| 3-application-log | 1-record-application | story/3-application-log/1-record-application | pr-open |
 | 3-application-log | 2-query-application-history | | approved |
 | 4-browser-session-tools | 1-retry-policy | | approved |
 | 4-browser-session-tools | 2-session-lifecycle | | approved |
@@ -151,4 +151,4 @@ status: <!-- unpublished | built | published | failed -->
 
 ## Next Action
 <!-- One sentence. What should happen next, and who does it (agent or user). -->
-Run /pr 3-application-log/1-record-application to open its PR against feature/3-application-log (code done, all gates green, 99% coverage).
+Await review/merge of PR #10 (story/3-application-log/1-record-application -> feature/3-application-log). On merge: mark story merged, delete story branch, then run /stage-a 3-application-log/2-query-application-history.
