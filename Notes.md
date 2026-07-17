@@ -44,7 +44,7 @@ status: <!-- unpublished | built | published | failed -->
 | 2-credentials-log-book | 2-password-generator | story/2-credentials-log-book/2-password-generator (deleted, merged) | merged |
 | 2-credentials-log-book | 3-credential-tools | story/2-credentials-log-book/3-credential-tools (deleted, merged) | merged |
 | 3-application-log | 1-record-application | story/3-application-log/1-record-application (deleted, merged) | merged |
-| 3-application-log | 2-query-application-history | story/3-application-log/2-query-application-history | code |
+| 3-application-log | 2-query-application-history | story/3-application-log/2-query-application-history | pr-open |
 | 4-browser-session-tools | 1-retry-policy | | approved |
 | 4-browser-session-tools | 2-session-lifecycle | | approved |
 | 4-browser-session-tools | 3-fill-field | | approved |
@@ -153,4 +153,4 @@ status: <!-- unpublished | built | published | failed -->
 
 ## Next Action
 <!-- One sentence. What should happen next, and who does it (agent or user). -->
-Run /pr 3-application-log/2-query-application-history to open its PR against feature/3-application-log (code done, all gates green, 99% coverage). Last story for this feature — once merged, feature becomes stories-merged and ready for /pr 3-application-log.
+Await review/merge of PR #12 (story/3-application-log/2-query-application-history -> feature/3-application-log). On merge: mark story merged, delete story branch; this is the feature's last story, so feature becomes stories-merged — then run /pr 3-application-log to open the epic PR into main (will auto-merge if clean and CI-green).
