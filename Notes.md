@@ -159,4 +159,4 @@ status: <!-- unpublished | built | published | failed -->
 
 ## Next Action
 <!-- One sentence. What should happen next, and who does it (agent or user). -->
-All 5 features done and merged to main. PR #24 merged correctly (full restructure now live). Awaiting review/merge of PR #25 (chore/readme-badges -> main, restores Python/Ruff badges dropped by the restructure). After that: nothing left to build — consider /publish, or ask the user what's next.
+All 5 features done and merged to main. README fully settled: restructure (PR #24) and badge restoration (PR #25) both merged correctly and verified. Nothing left to build — consider /publish, or ask the user what's next.
