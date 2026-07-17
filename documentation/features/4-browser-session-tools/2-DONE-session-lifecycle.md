@@ -1,4 +1,4 @@
-# 2. Session Lifecycle
+# 2. DONE - Session Lifecycle
 
 ## What it does
 
