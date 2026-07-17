@@ -45,7 +45,7 @@ status: <!-- unpublished | built | published | failed -->
 | 2-credentials-log-book | 3-credential-tools | story/2-credentials-log-book/3-credential-tools (deleted, merged) | merged |
 | 3-application-log | 1-record-application | story/3-application-log/1-record-application (deleted, merged) | merged |
 | 3-application-log | 2-query-application-history | story/3-application-log/2-query-application-history (deleted, merged) | merged |
-| 4-browser-session-tools | 1-retry-policy | story/4-browser-session-tools/1-retry-policy | pr-open |
+| 4-browser-session-tools | 1-retry-policy | story/4-browser-session-tools/1-retry-policy (deleted, merged) | merged |
 | 4-browser-session-tools | 2-session-lifecycle | | approved |
 | 4-browser-session-tools | 3-fill-field | | approved |
 | 4-browser-session-tools | 4-advance-page | | approved |
@@ -153,4 +153,4 @@ status: <!-- unpublished | built | published | failed -->
 
 ## Next Action
 <!-- One sentence. What should happen next, and who does it (agent or user). -->
-Await review/merge of PR #14 (story/4-browser-session-tools/1-retry-policy -> feature/4-browser-session-tools). On merge: mark story merged, delete story branch, then run /stage-a 4-browser-session-tools/2-session-lifecycle.
+Run /stage-a 4-browser-session-tools/2-session-lifecycle.
