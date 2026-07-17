@@ -1,4 +1,4 @@
-# 1. Record Application
+# 1. DONE - Record Application
 
 ## What it does
 
