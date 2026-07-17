@@ -147,6 +147,8 @@ status: <!-- unpublished | built | published | failed -->
 
 - 2026-07-17: Added epic-tier PR auto-merge (`CLAUDE.md → Branching Model`/`Hard Rules`, `.claude/commands/pr.md`): `/pr <feature>` (epic → `main`) now merges itself automatically once the PR is conflict-free and the required CI check passes — an epic branch only ever replays already-individually-reviewed story diffs, so it doesn't need a fresh human review gate. If it doesn't merge cleanly (`main` diverged since the epic branched), the agent stops and asks the user to resolve it and merge via GitHub instead. Story-tier PRs (`/pr <feature>/<story>`) are unaffected — still always merged by the user manually, since that's where new code first appears.
 
+- 2026-07-17: The epic PR #9 on-merge step (mark feature `done`, `DONE-`mark its epic file) got announced by the user ("approved and merged") but the agent got pulled into an unrelated harness-change request in the same turn and never actually ran it — left `Notes.md` saying `pr-open` and the epic file un-renamed until the user pointed it out. Fixed the harness (`CLAUDE.md → Session Start` step 3, new; `→ Hard Rules`): every session/turn now reconciles any `pr-open` feature/story against its actual GitHub state before starting whatever the user just asked for, and a revealed-merged PR's on-merge step must be finished immediately, not deferred past the current tangent.
+
 ## Next Action
 <!-- One sentence. What should happen next, and who does it (agent or user). -->
 Run /stage-a 3-application-log/1-record-application (feature 2-credentials-log-book fully done and merged to main).
