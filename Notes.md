@@ -29,9 +29,9 @@ status: <!-- unpublished | built | published | failed -->
 |---------|--------|--------|
 | 1-mcp-server-framework | feature/1-mcp-server-framework | done |
 | 2-credentials-log-book | feature/2-credentials-log-book | branched |
-| 3-application-log | feature/3-application-log | branched |
-| 4-browser-session-tools | feature/4-browser-session-tools | branched |
-| 5-apply-orchestration | feature/5-apply-orchestration | branched |
+| 3-application-log | | approved |
+| 4-browser-session-tools | | approved |
+| 5-apply-orchestration | | approved |
 
 ## Stories
 | Feature | Story | Branch | Status |
@@ -136,6 +136,10 @@ status: <!-- unpublished | built | published | failed -->
   `setup`, `publish`.
 
 - 2026-07-17: `/pr 2-credentials-log-book/1-log-book-storage` found `feature/2-credentials-log-book` had never been pushed to origin (created locally back at `/features`, before any story existed to push it) — `gh pr create` failed with "Base ref must be a branch" until it was pushed. Pushed it before opening the story PR. Same is likely true of the other three not-yet-started epic branches (`3-application-log`, `4-browser-session-tools`, `5-apply-orchestration`); their first story PR will hit the same thing and should just push the epic branch first, same as here — not a bug, just a step worth expecting.
+
+- 2026-07-17: Diagnosed why CI never ran on PR #6 (`story/.../1-log-book-storage` → `feature/2-credentials-log-book`): `feature/2-credentials-log-book` (and the other three not-yet-started epic branches) had been branched off `main` at `/features` approval time, *before* commit `7c309e8` (the fix making CI trigger on epic/story-tier PRs, not just PRs into `main`) later landed on `main` via feature 1's merge — so those four branches were still running the pre-fix, `main`-only-trigger workflow. Root-caused as a process bug, not a one-off: branching every approved feature immediately, regardless of when work on it actually starts, means any of them can go stale relative to later `main` changes.
+  - **Fix (harness, permanent):** `CLAUDE.md → Branching Model`, `.claude/commands/features.md`, and `.claude/commands/stage-a.md` changed so epic branches are created **lazily** — by `/stage-a`, off current `main`, the first time work starts on any of that feature's stories — instead of in bulk by `/features` at approval time. `/features` now only sets feature status to `approved`; `/stage-a` creates+pushes `feature/<feature>` on demand and flips status to `branched`. `/setup` already configures CI trigger + branch protection on `main` once, permanently — lazy branching is what makes every future epic branch actually inherit that current state instead of freezing whatever `main` looked like at approval time.
+  - **Remediation (this project, mid-way through):** deleted the three stale, never-started, never-pushed local epic branches (`feature/3-application-log`, `feature/4-browser-session-tools`, `feature/5-apply-orchestration`) — no work existed on them, so nothing lost; `/stage-a` will recreate them off current `main` when each is actually started. `feature/2-credentials-log-book` already has in-flight work (PR #6 open), so instead merged current `main` (fast-forward) into it, then merged that into `story/2-credentials-log-book/1-log-book-storage` and pushed both — confirmed fixed: PR #6's `test` check now runs and passes (previously reported no checks at all).
 
 ## Next Action
 <!-- One sentence. What should happen next, and who does it (agent or user). -->
