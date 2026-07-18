@@ -2,7 +2,7 @@
 
 ## Phase
 <!-- onboarding | setup | requirements | features | stories | stage-a | stage-b | pr | publish | done -->
-features
+stories
 
 ## Project
 name: peddler
@@ -32,6 +32,7 @@ status: <!-- unpublished | built | published | failed -->
 | 3-application-log | feature/3-application-log | done |
 | 4-browser-session-tools | feature/4-browser-session-tools | done |
 | 5-apply-orchestration | feature/5-apply-orchestration | done |
+| 6-cli-entrypoint | | approved |
 
 ## Stories
 | Feature | Story | Branch | Status |
@@ -166,4 +167,4 @@ status: <!-- unpublished | built | published | failed -->
 
 ## Next Action
 <!-- One sentence. What should happen next, and who does it (agent or user). -->
-All 5 CLI Entrypoint questions answered and folded into requirement prose (peddler/peddler-mcp naming kept; MCP registration via `claude mcp add --scope local`, not .mcp.json; idempotent re-registration; Playwright preflight check added as requirement 17; concurrency mitigated by convention, file locking deferred to Out of Scope). Run /features to draft epic 6 (CLI Entrypoint & MCP Server Wiring).
+Feature 6 (CLI Entrypoint & MCP Server Wiring) approved. Run /stories 6-cli-entrypoint to draft its stories (expected: peddler-mcp server wiring, then the peddler launcher).
