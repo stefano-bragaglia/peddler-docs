@@ -2,7 +2,7 @@
 
 ## Phase
 <!-- onboarding | setup | requirements | features | stories | stage-a | stage-b | pr | publish | done -->
-publish
+requirements
 
 ## Project
 name: peddler
@@ -166,4 +166,4 @@ status: <!-- unpublished | built | published | failed -->
 
 ## Next Action
 <!-- One sentence. What should happen next, and who does it (agent or user). -->
-PR #26 merged (per-file coverage gate now live on main). Starting a new iteration (CLI entrypoint launcher, per CLAUDE.md -> New Iterations): Description.md amended with the new iteration section (src/peddler/commands entrypoint, peddler/peddler-mcp console scripts) -- present it to the user for confirmation, then /requirements with new questions -- stop there before /features.
+Description.md amendment (CLI Entrypoint & MCP Server Wiring iteration) approved by user. Run /requirements to append new functional requirements + Questions for this iteration; present open questions and stop before /features.
