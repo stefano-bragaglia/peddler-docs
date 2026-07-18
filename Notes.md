@@ -21,6 +21,8 @@ status: <!-- unpublished | built | published | failed -->
 ## Open Questions
 <!-- Add a question when blocked. Clear (delete the line) when answered. -->
 <!-- Format: - [ ] Q: <question> / A: <answer> -->
+- [ ] Q: CLI Entrypoint iteration — 5 questions in Requirements.md -> ## Questions: CLI Entrypoint (naming,
+  .mcp.json registration scope, conflict handling, Playwright-binary preflight check, concurrency/locking).
 
 ## Features
 <!-- status: proposed | approved | branched | stories-merged | pr-open | done -->
@@ -166,4 +168,4 @@ status: <!-- unpublished | built | published | failed -->
 
 ## Next Action
 <!-- One sentence. What should happen next, and who does it (agent or user). -->
-Description.md amendment (CLI Entrypoint & MCP Server Wiring iteration) approved by user. Run /requirements to append new functional requirements + Questions for this iteration; present open questions and stop before /features.
+Requirements.md amended (requirements 13-16, new non-functional bullets, launcher usage example, ## Questions: CLI Entrypoint with 5 open questions). Awaiting user answers before /features.

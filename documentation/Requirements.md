@@ -53,6 +53,24 @@
 12. The system maintains a separate, persistent local application log — one entry per `/apply` attempt, recording
     the URL, a timestamp, and the outcome (success / aborted / stuck-unresolved) — giving the user a history of
     applications and a basis for future duplicate-application checks.
+13. The system provides a `peddler` console-script CLI (`argparse`-based) that launches Claude Code with the
+    Peddler MCP server registered. It accepts `--dir` (default: current working directory — the folder to launch
+    Claude Code in, the user's own job-search workspace, not Peddler's own source checkout), `--credentials`
+    (default `~/.peddler/credentials.json`), `--applog` (default `~/.peddler/applications.log`), and forwards
+    everything after a `--` separator verbatim to `claude` itself (e.g. `peddler -- --model opus`).
+14. The system provides a `peddler-mcp` console-script entry point: the actual MCP server process, wiring every
+    feature's tools (credentials, application log, and browser session tools — the last of which are not
+    currently registered against any `ToolRegistry` at all) into one shared registry and serving them over the
+    existing stdio JSON-RPC `Transport`/`Server` framework. This is spawned only by Claude Code, per its MCP
+    server configuration — never invoked directly by the user.
+15. `peddler` ensures the target directory has an MCP server registration pointing at `peddler-mcp`, with the
+    resolved `--credentials`/`--applog` paths passed through as environment variables, without clobbering any
+    other MCP servers already configured for that project. (Exact registration mechanism — `.mcp.json` file vs.
+    `claude mcp add` vs. something else — is an open question below.)
+16. `peddler` launches Claude Code by replacing its own process (`exec`, not spawning a child it has to track),
+    so that closing the terminal / ending the Claude Code session tears down the MCP server subprocess too via
+    ordinary OS process/signal propagation — not custom lifecycle-tracking code. `peddler` never opens a new
+    terminal window; it takes over the shell it was invoked from.
 
 ## Non-Functional Requirements
 
@@ -73,6 +91,11 @@
   beyond normal honest form-filling, no cover-letter generation.
 - **Concurrency**: v1 supports one active application session (one open browser) at a time per `/apply`
   invocation; concurrent `/apply` runs are out of scope for now.
+- **Packaging**: `peddler` and `peddler-mcp` are registered as `[project.scripts]` entry points in
+  `project/pyproject.toml`, so installing the package (`uv tool install peddler` or equivalent) puts both on
+  `PATH`.
+- **Platform**: the launcher's `exec`-based process replacement (`os.execvp`) is a POSIX facility — macOS/Linux
+  only. Windows support is out of scope unless requested (matches the development machine).
 
 ## User Interaction Model
 
@@ -105,6 +128,19 @@ Peddler: Unable to proceed. Aborting this application.
          Reason: CAPTCHA challenge on step 2, unresolved.
          Suggest applying manually — opening a visible browser at the URL for you now.
 ```
+
+Before any of that, the user starts a session with the `peddler` launcher from their own terminal:
+
+```
+$ peddler --dir ~/job-search --credentials ~/job-search/.peddler/credentials.json
+[peddler] registered MCP server in /Users/you/job-search/.mcp.json
+[peddler] starting claude in /Users/you/job-search ...
+
+> /apply ~/cv.md ~/jobs/acme-backend-swe/jd.md https://acme.example.com/careers/apply/1234
+...
+```
+
+Closing that terminal (or exiting Claude Code normally) ends the whole session, MCP server included.
 
 ## Questions: Requirements
 
@@ -145,3 +181,25 @@ Peddler: Unable to proceed. Aborting this application.
    _A: No hard cap. The system relies on the LLM's own judgment across steps rather than a fixed page limit;
    if the flow genuinely seems to be going nowhere, that's expected to surface as a Stuck Handling condition
    through the LLM's own reasoning rather than a hardcoded counter._
+
+## Questions: CLI Entrypoint
+
+1. *Q: Naming — is `peddler` (launcher) / `peddler-mcp` (server) the right pair of console-script names, or would
+   you prefer something else (e.g. to make the "don't run this one yourself" distinction more obvious)?*
+2. *Q: Where should `peddler` register the MCP server — a `.mcp.json` file written into `--dir` (visible,
+   possibly tracked if that directory happens to be its own git repo), or Claude Code's user/local-scope config
+   (e.g. via `claude mcp add ... --scope local`, invisible inside `--dir`)? This matters because `--dir` is the
+   user's own workspace, not Peddler's — an unwanted tracked file there is a real annoyance, not just cosmetic.*
+3. *Q: If `--dir` already has an MCP server config with something unexpected in it (malformed JSON, a `peddler`
+   entry already pointing somewhere else) — fail loudly and ask the user to fix it, or overwrite it?*
+4. *Q: Should `peddler` check that Playwright's browser binaries are actually installed (`playwright install
+   chromium`) before handing off to Claude Code, so a missing-browser failure surfaces immediately at launch with
+   a clear message — rather than several turns into a conversation, the first time `/apply` calls
+   `open_session`?*
+5. *Q: The existing Concurrency non-functional requirement assumes one active `/apply` at a time — framed around
+   a single invocation. `peddler` makes running multiple simultaneous sessions (different `--dir`s, different
+   terminals) easier to stumble into. If two sessions share the same `--credentials`/`--applog` path (the
+   defaults, unless each is given a distinct override) and both happen to write at once, `CredentialStore.put()`
+   and `ApplicationLog.append()` have no file locking (explicitly out of scope for v1, per the existing
+   Concurrency requirement). Is relying on the user to point separate sessions at separate `--credentials`/
+   `--applog` paths an acceptable mitigation, or does this need real cross-process locking now?*
