@@ -169,4 +169,4 @@ status: <!-- unpublished | built | published | failed -->
 
 ## Next Action
 <!-- One sentence. What should happen next, and who does it (agent or user). -->
-PR #29 (epic) auto-merged (mergeable clean, CI green) — feature 6-cli-entrypoint fully done. This iteration (CLI Entrypoint & MCP Server Wiring) is complete. Per CLAUDE.md -> New Iterations: refresh project/README.md (usage now includes `peddler --dir ... --credentials ...` before `/apply`) and then offer /publish, or ask the user if they have more to add (which would start another iteration).
+Awaiting review/merge of PR #30 (chore/readme-cli-entrypoint -> main, README refresh for the CLI Entrypoint iteration, CI green). Once merged: this iteration is fully complete -- offer /publish, or ask the user if they have more to add (which would start another iteration).
