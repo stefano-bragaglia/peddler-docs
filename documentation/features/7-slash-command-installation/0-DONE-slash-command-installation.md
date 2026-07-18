@@ -1,4 +1,4 @@
-# 7. Slash Command Installation
+# 7. DONE - Slash Command Installation
 
 ## Summary
 

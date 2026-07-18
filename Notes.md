@@ -33,7 +33,7 @@ status: <!-- unpublished | built | published | failed -->
 | 4-browser-session-tools | feature/4-browser-session-tools | done |
 | 5-apply-orchestration | feature/5-apply-orchestration | done |
 | 6-cli-entrypoint | feature/6-cli-entrypoint | done |
-| 7-slash-command-installation | feature/7-slash-command-installation | stories-merged |
+| 7-slash-command-installation | feature/7-slash-command-installation | done |
 
 ## Stories
 | Feature | Story | Branch | Status |
@@ -190,4 +190,4 @@ status: <!-- unpublished | built | published | failed -->
 
 ## Next Action
 <!-- One sentence. What should happen next, and who does it (agent or user). -->
-PR #32 merged; the only story for 7-slash-command-installation is merged -> feature is stories-merged. Run /pr 7-slash-command-installation to open the epic PR into main (will auto-merge if clean and CI-green) — completes this iteration.
+PR #33 (epic) auto-merged (mergeable clean, CI green) — feature 7-slash-command-installation fully done. This iteration (Slash Command Installation) is complete. Per CLAUDE.md -> New Iterations: refresh project/README.md (usage should mention the /apply command being auto-installed), then offer /publish, or ask the user if they have more to add.
