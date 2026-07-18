@@ -53,7 +53,7 @@ status: <!-- unpublished | built | published | failed -->
 | 4-browser-session-tools | 5-fill-credential-field | story/4-browser-session-tools/5-fill-credential-field (deleted, merged) | merged |
 | 5-apply-orchestration | 1-apply-command | story/5-apply-orchestration/1-apply-command (deleted, merged) | merged |
 | 5-apply-orchestration | 2-email-extractor | story/5-apply-orchestration/2-email-extractor (deleted, merged) | merged |
-| 6-cli-entrypoint | 1-mcp-server-wiring | story/6-cli-entrypoint/1-mcp-server-wiring | tests |
+| 6-cli-entrypoint | 1-mcp-server-wiring | story/6-cli-entrypoint/1-mcp-server-wiring | code |
 | 6-cli-entrypoint | 2-peddler-launcher | | approved |
 
 ## Decisions
@@ -169,4 +169,4 @@ status: <!-- unpublished | built | published | failed -->
 
 ## Next Action
 <!-- One sentence. What should happen next, and who does it (agent or user). -->
-Run /stage-b 6-cli-entrypoint/1-mcp-server-wiring (tests written on story/6-cli-entrypoint/1-mcp-server-wiring; production code not yet written).
+Run /pr 6-cli-entrypoint/1-mcp-server-wiring to open its PR against feature/6-cli-entrypoint (code done, all gates green including per-file coverage, 99.43% overall). Verified peddler-mcp console script installs correctly (uv sync + which peddler-mcp).
