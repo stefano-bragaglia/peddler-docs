@@ -1,4 +1,4 @@
-# 6. CLI Entrypoint & MCP Server Wiring
+# 6. DONE - CLI Entrypoint & MCP Server Wiring
 
 ## Summary
 

@@ -2,7 +2,7 @@
 
 ## Phase
 <!-- onboarding | setup | requirements | features | stories | stage-a | stage-b | pr | publish | done -->
-stage-a
+publish
 
 ## Project
 name: peddler
@@ -32,7 +32,7 @@ status: <!-- unpublished | built | published | failed -->
 | 3-application-log | feature/3-application-log | done |
 | 4-browser-session-tools | feature/4-browser-session-tools | done |
 | 5-apply-orchestration | feature/5-apply-orchestration | done |
-| 6-cli-entrypoint | feature/6-cli-entrypoint | stories-merged |
+| 6-cli-entrypoint | feature/6-cli-entrypoint | done |
 
 ## Stories
 | Feature | Story | Branch | Status |
@@ -169,4 +169,4 @@ status: <!-- unpublished | built | published | failed -->
 
 ## Next Action
 <!-- One sentence. What should happen next, and who does it (agent or user). -->
-PR #28 merged; both stories for 6-cli-entrypoint now merged -> feature is stories-merged. Run /pr 6-cli-entrypoint to open the epic PR into main (will auto-merge if clean and CI-green) — completes this iteration.
+PR #29 (epic) auto-merged (mergeable clean, CI green) — feature 6-cli-entrypoint fully done. This iteration (CLI Entrypoint & MCP Server Wiring) is complete. Per CLAUDE.md -> New Iterations: refresh project/README.md (usage now includes `peddler --dir ... --credentials ...` before `/apply`) and then offer /publish, or ask the user if they have more to add (which would start another iteration).
