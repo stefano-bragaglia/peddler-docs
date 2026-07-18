@@ -1,4 +1,4 @@
-# 1. MCP Server Wiring
+# 1. DONE - MCP Server Wiring
 
 ## What it does
 
