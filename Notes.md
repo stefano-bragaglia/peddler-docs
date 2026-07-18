@@ -167,6 +167,18 @@ status: <!-- unpublished | built | published | failed -->
   - **Per-file coverage gate** (`CLAUDE.md`, `setup.md`, `stage-b.md`): `--cov-fail-under=90` only gates the aggregate; added a `scripts/check_file_coverage.py` step (documented for future `/setup` runs) that also fails if any individual file sits below 90%.
   - Implemented the per-file coverage gate for real in this project too (not just documented for future ones): `project/scripts/check_file_coverage.py`, wired into CI and the local pre-commit hook (the hook itself is local-only, `.git/hooks/` is never tracked by git). Fixed the one file it caught — `session.py`'s real Playwright adapter was at 62%; marked `# pragma: no cover` since it's deliberately untested per the README's own Design Rationale (every test injects a fake `browser_factory`). Opened as PR #26 (`chore/per-file-coverage-gate` → `main`), CI green.
 
+- 2026-07-18: Found (via the user hand-testing `peddler`) that `Transport.write_message()` never flushed
+  `stdout` — invisible in tests (`io.StringIO` has no real buffering), but over a real OS pipe (block-buffered
+  when not a TTY, exactly how Claude Code spawns `peddler-mcp`) a written response can sit in the buffer
+  indefinitely. This is why `claude mcp get peddler-mcp` reported "✘ Failed to connect" even though the
+  registration itself was correct. A one-shot manual pipe test (`echo ... | peddler-mcp`) misleadingly appeared to
+  work, because process exit auto-flushes — the bug only shows up with a real, long-lived bidirectional
+  `subprocess.Popen` exchange (reproduced and confirmed both before and after the fix). Fixed with one
+  `self._stdout.flush()` in `transport.py`, plus a regression test using a fake stream that tracks `flush()`
+  calls explicitly (a `StringIO`-based test structurally cannot catch this class of bug). Treated as a bug fix to
+  already-merged code (feature 1), not a new iteration — no Description/Requirements amendment needed. Opened as
+  PR #31 (`fix/mcp-transport-flush` → `main`), CI green.
+
 ## Next Action
 <!-- One sentence. What should happen next, and who does it (agent or user). -->
-PR #30 merged; README refresh complete. CLI Entrypoint & MCP Server Wiring iteration is fully done (all merged, README current). Ask the user: run /publish now, or hold for more (which would start another iteration) -- per CLAUDE.md -> New Iterations, Phase only reaches `done` once that choice is actually made.
+Two things in flight: (1) Slash Command Installation iteration -- Description.md amended and approved; next is /requirements. (2) Bug fix PR #31 (transport flush) awaiting review/merge, found while hand-testing peddler -- this was the actual reason /apply's tools weren't loading, more fundamental than the slash-command gap. Get PR #31 merged first (it unblocks real end-to-end testing), then continue the Slash Command Installation iteration.
