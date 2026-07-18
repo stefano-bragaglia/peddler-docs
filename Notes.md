@@ -2,7 +2,7 @@
 
 ## Phase
 <!-- onboarding | setup | requirements | features | stories | stage-a | stage-b | pr | publish | done -->
-publish
+stories
 
 ## Project
 name: peddler
@@ -33,6 +33,7 @@ status: <!-- unpublished | built | published | failed -->
 | 4-browser-session-tools | feature/4-browser-session-tools | done |
 | 5-apply-orchestration | feature/5-apply-orchestration | done |
 | 6-cli-entrypoint | feature/6-cli-entrypoint | done |
+| 7-slash-command-installation | | approved |
 
 ## Stories
 | Feature | Story | Branch | Status |
@@ -181,4 +182,4 @@ status: <!-- unpublished | built | published | failed -->
 
 ## Next Action
 <!-- One sentence. What should happen next, and who does it (agent or user). -->
-All 3 Slash Command Installation questions answered and folded into requirement 18's prose (overwrite-if-differs, overwrite-anyway on conflict, warning not fatal). Run /features to draft the new epic (feature 7).
+Feature 7 (Slash Command Installation) approved. Run /stories 7-slash-command-installation to draft its story (expected: single story extending the peddler launcher).
