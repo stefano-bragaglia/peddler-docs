@@ -2,7 +2,7 @@
 
 ## Phase
 <!-- onboarding | setup | requirements | features | stories | stage-a | stage-b | pr | publish | done -->
-stories
+stage-a
 
 ## Project
 name: peddler
@@ -53,6 +53,8 @@ status: <!-- unpublished | built | published | failed -->
 | 4-browser-session-tools | 5-fill-credential-field | story/4-browser-session-tools/5-fill-credential-field (deleted, merged) | merged |
 | 5-apply-orchestration | 1-apply-command | story/5-apply-orchestration/1-apply-command (deleted, merged) | merged |
 | 5-apply-orchestration | 2-email-extractor | story/5-apply-orchestration/2-email-extractor (deleted, merged) | merged |
+| 6-cli-entrypoint | 1-mcp-server-wiring | | approved |
+| 6-cli-entrypoint | 2-peddler-launcher | | approved |
 
 ## Decisions
 <!-- Key choices made and why. Future agents use this to avoid re-litigating. -->
@@ -167,4 +169,4 @@ status: <!-- unpublished | built | published | failed -->
 
 ## Next Action
 <!-- One sentence. What should happen next, and who does it (agent or user). -->
-Feature 6 (CLI Entrypoint & MCP Server Wiring) approved. Run /stories 6-cli-entrypoint to draft its stories (expected: peddler-mcp server wiring, then the peddler launcher).
+Both stories for feature 6 approved. Run /stage-a 6-cli-entrypoint/1-mcp-server-wiring (first story; epic branch will be created lazily).
