@@ -181,4 +181,4 @@ status: <!-- unpublished | built | published | failed -->
 
 ## Next Action
 <!-- One sentence. What should happen next, and who does it (agent or user). -->
-Two things in flight: (1) Slash Command Installation iteration -- Description.md amended and approved; next is /requirements. (2) Bug fix PR #31 (transport flush) awaiting review/merge, found while hand-testing peddler -- this was the actual reason /apply's tools weren't loading, more fundamental than the slash-command gap. Get PR #31 merged first (it unblocks real end-to-end testing), then continue the Slash Command Installation iteration.
+PR #31 merged and verified working (re-tested the globally uv-tool-installed peddler-mcp directly -- editable install picked up the fix with no reinstall needed). User should re-run `peddler --dir ...` and confirm `claude mcp get peddler-mcp` now connects. Continue the Slash Command Installation iteration next: Description.md is amended and approved; run /requirements.
