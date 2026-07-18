@@ -33,7 +33,7 @@ status: <!-- unpublished | built | published | failed -->
 | 4-browser-session-tools | feature/4-browser-session-tools | done |
 | 5-apply-orchestration | feature/5-apply-orchestration | done |
 | 6-cli-entrypoint | feature/6-cli-entrypoint | done |
-| 7-slash-command-installation | feature/7-slash-command-installation | branched |
+| 7-slash-command-installation | feature/7-slash-command-installation | stories-merged |
 
 ## Stories
 | Feature | Story | Branch | Status |
@@ -56,7 +56,7 @@ status: <!-- unpublished | built | published | failed -->
 | 5-apply-orchestration | 2-email-extractor | story/5-apply-orchestration/2-email-extractor (deleted, merged) | merged |
 | 6-cli-entrypoint | 1-mcp-server-wiring | story/6-cli-entrypoint/1-mcp-server-wiring (deleted, merged) | merged |
 | 6-cli-entrypoint | 2-peddler-launcher | story/6-cli-entrypoint/2-peddler-launcher (deleted, merged) | merged |
-| 7-slash-command-installation | 1-install-apply-command | story/7-slash-command-installation/1-install-apply-command | pr-open |
+| 7-slash-command-installation | 1-install-apply-command | story/7-slash-command-installation/1-install-apply-command (deleted, merged) | merged |
 
 ## Decisions
 <!-- Key choices made and why. Future agents use this to avoid re-litigating. -->
@@ -190,4 +190,4 @@ status: <!-- unpublished | built | published | failed -->
 
 ## Next Action
 <!-- One sentence. What should happen next, and who does it (agent or user). -->
-Await review/merge of PR #32 (story/7-slash-command-installation/1-install-apply-command -> feature/7-slash-command-installation). On merge: mark story merged, delete story branch; this is the feature's last story, so feature becomes stories-merged — then run /pr 7-slash-command-installation to open the epic PR into main (will auto-merge if clean and CI-green).
+PR #32 merged; the only story for 7-slash-command-installation is merged -> feature is stories-merged. Run /pr 7-slash-command-installation to open the epic PR into main (will auto-merge if clean and CI-green) — completes this iteration.

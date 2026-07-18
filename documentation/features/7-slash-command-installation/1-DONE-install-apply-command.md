@@ -1,4 +1,4 @@
-# 1. Install Apply Command
+# 1. DONE - Install Apply Command
 
 ## What it does
 
