@@ -21,6 +21,8 @@ status: <!-- unpublished | built | published | failed -->
 ## Open Questions
 <!-- Add a question when blocked. Clear (delete the line) when answered. -->
 <!-- Format: - [ ] Q: <question> / A: <answer> -->
+- [ ] Q: Slash Command Installation iteration — 3 questions in Requirements.md -> ## Questions: Slash Command
+  Installation (overwrite policy, conflict handling, failure severity).
 
 ## Features
 <!-- status: proposed | approved | branched | stories-merged | pr-open | done -->
@@ -181,4 +183,4 @@ status: <!-- unpublished | built | published | failed -->
 
 ## Next Action
 <!-- One sentence. What should happen next, and who does it (agent or user). -->
-PR #31 merged and verified working (re-tested the globally uv-tool-installed peddler-mcp directly -- editable install picked up the fix with no reinstall needed). User should re-run `peddler --dir ...` and confirm `claude mcp get peddler-mcp` now connects. Continue the Slash Command Installation iteration next: Description.md is amended and approved; run /requirements.
+Requirements.md amended (requirement 18, new Questions: Slash Command Installation section, 3 questions). Awaiting user answers before /features.

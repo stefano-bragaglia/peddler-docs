@@ -78,6 +78,11 @@
     binaries are installed and fails fast with a clear fix-it message (e.g. "run `uv run playwright install
     chromium`") if not — surfacing a missing-browser problem immediately at launch rather than several turns into
     a conversation, the first time `/apply` calls `open_session`.
+18. `peddler` ensures the `/apply` slash command is discoverable by Claude Code by installing the packaged
+    `apply.md` command file at user scope (`~/.claude/commands/apply.md`) — never inside `--dir` (the user's own
+    workspace) — creating `~/.claude/commands/` if it doesn't exist. Confirmed by hand: shipping the file inside
+    the installed package (an earlier iteration) is not sufficient on its own; Claude Code reports `Unknown
+    command: /apply` until the file actually exists at this path.
 
 ## Non-Functional Requirements
 
@@ -227,3 +232,17 @@ Closing that terminal (or exiting Claude Code normally) ends the whole session, 
    _A: For now, rely on the user to either use separate `--credentials`/`--applog` paths per simultaneous session,
    or apply to one job at a time. Real file locking is deferred — recorded in `Description.md → Out of Scope` as
    a future improvement, not a requirement for this iteration._
+
+## Questions: Slash Command Installation
+
+1. *Q: Should `peddler` always overwrite `~/.claude/commands/apply.md` with the packaged version on every run, or
+   only write it if missing / only overwrite if the packaged content actually differs from what's installed? The
+   difference matters if the user ever hand-edits that file — always-overwrite guarantees staying in sync with
+   the installed `peddler` version but destroys any manual customization; write-if-missing preserves
+   customization but can leave a stale copy after a `peddler` upgrade.*
+2. *Q: If `~/.claude/commands/apply.md` already exists and doesn't look like a `peddler`-authored file (e.g. no
+   recognizable marker, in case the user has an unrelated `/apply` command of their own) — overwrite anyway
+   (assume ownership of that path), or refuse and warn?*
+3. *Q: Should a failure to install the command file (e.g. permissions on `~/.claude/`) be fatal — same as the
+   Playwright check or MCP registration — or just a warning, since the MCP server might still be usable if the
+   user already has the command file some other way?*
