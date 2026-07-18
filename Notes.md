@@ -32,7 +32,7 @@ status: <!-- unpublished | built | published | failed -->
 | 3-application-log | feature/3-application-log | done |
 | 4-browser-session-tools | feature/4-browser-session-tools | done |
 | 5-apply-orchestration | feature/5-apply-orchestration | done |
-| 6-cli-entrypoint | feature/6-cli-entrypoint | branched |
+| 6-cli-entrypoint | feature/6-cli-entrypoint | stories-merged |
 
 ## Stories
 | Feature | Story | Branch | Status |
@@ -54,7 +54,7 @@ status: <!-- unpublished | built | published | failed -->
 | 5-apply-orchestration | 1-apply-command | story/5-apply-orchestration/1-apply-command (deleted, merged) | merged |
 | 5-apply-orchestration | 2-email-extractor | story/5-apply-orchestration/2-email-extractor (deleted, merged) | merged |
 | 6-cli-entrypoint | 1-mcp-server-wiring | story/6-cli-entrypoint/1-mcp-server-wiring (deleted, merged) | merged |
-| 6-cli-entrypoint | 2-peddler-launcher | story/6-cli-entrypoint/2-peddler-launcher | pr-open |
+| 6-cli-entrypoint | 2-peddler-launcher | story/6-cli-entrypoint/2-peddler-launcher (deleted, merged) | merged |
 
 ## Decisions
 <!-- Key choices made and why. Future agents use this to avoid re-litigating. -->
@@ -169,4 +169,4 @@ status: <!-- unpublished | built | published | failed -->
 
 ## Next Action
 <!-- One sentence. What should happen next, and who does it (agent or user). -->
-Await review/merge of PR #28 (story/6-cli-entrypoint/2-peddler-launcher -> feature/6-cli-entrypoint). On merge: mark story merged, delete story branch; this is the feature's last story, so feature becomes stories-merged — then run /pr 6-cli-entrypoint to open the epic PR into main (will auto-merge if clean and CI-green).
+PR #28 merged; both stories for 6-cli-entrypoint now merged -> feature is stories-merged. Run /pr 6-cli-entrypoint to open the epic PR into main (will auto-merge if clean and CI-green) — completes this iteration.

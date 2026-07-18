@@ -1,4 +1,4 @@
-# 2. Peddler Launcher
+# 2. DONE - Peddler Launcher
 
 ## What it does
 
