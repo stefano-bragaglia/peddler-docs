@@ -190,4 +190,4 @@ status: <!-- unpublished | built | published | failed -->
 
 ## Next Action
 <!-- One sentence. What should happen next, and who does it (agent or user). -->
-PR #33 (epic) auto-merged (mergeable clean, CI green) — feature 7-slash-command-installation fully done. This iteration (Slash Command Installation) is complete. Per CLAUDE.md -> New Iterations: refresh project/README.md (usage should mention the /apply command being auto-installed), then offer /publish, or ask the user if they have more to add.
+Awaiting review/merge of PR #34 (chore/readme-slash-command-iteration -> main, README refresh, CI green). Once merged: both this iteration and the CLI Entrypoint iteration are fully complete -- offer /publish, or ask the user if they have more to add.
