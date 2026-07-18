@@ -82,7 +82,11 @@
     `apply.md` command file at user scope (`~/.claude/commands/apply.md`) — never inside `--dir` (the user's own
     workspace) — creating `~/.claude/commands/` if it doesn't exist. Confirmed by hand: shipping the file inside
     the installed package (an earlier iteration) is not sufficient on its own; Claude Code reports `Unknown
-    command: /apply` until the file actually exists at this path.
+    command: /apply` until the file actually exists at this path. Overwrites the installed copy only when the
+    packaged content actually differs (a no-op otherwise, and unconditional if a differing file is already
+    there — `peddler` owns this path by convention, no attempt to detect whether an existing file is "really
+    ours"). A failure to install it (e.g. a permissions problem on `~/.claude/`) is a warning, not fatal —
+    `peddler` still proceeds to register the MCP server and launch `claude`.
 
 ## Non-Functional Requirements
 
@@ -240,9 +244,16 @@ Closing that terminal (or exiting Claude Code normally) ends the whole session, 
    difference matters if the user ever hand-edits that file — always-overwrite guarantees staying in sync with
    the installed `peddler` version but destroys any manual customization; write-if-missing preserves
    customization but can leave a stale copy after a `peddler` upgrade.*
+   _A: Overwrite only if the packaged content differs from what's installed — compares the two, rewrites only on
+   a real difference (e.g. after a `peddler` upgrade), and is a no-op otherwise._
 2. *Q: If `~/.claude/commands/apply.md` already exists and doesn't look like a `peddler`-authored file (e.g. no
    recognizable marker, in case the user has an unrelated `/apply` command of their own) — overwrite anyway
    (assume ownership of that path), or refuse and warn?*
+   _A: Overwrite anyway — `peddler` owns this path by convention once it decides to manage it at all; no content
+   sniffing to detect "is this really ours."_
 3. *Q: Should a failure to install the command file (e.g. permissions on `~/.claude/`) be fatal — same as the
    Playwright check or MCP registration — or just a warning, since the MCP server might still be usable if the
    user already has the command file some other way?*
+   _A: A warning, not fatal — print it and still proceed to register the MCP server and launch `claude`. Failing
+   the whole launch over this one step would be disproportionate, especially since the command file might
+   already be installed from a prior run._
