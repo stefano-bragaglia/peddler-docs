@@ -169,4 +169,4 @@ status: <!-- unpublished | built | published | failed -->
 
 ## Next Action
 <!-- One sentence. What should happen next, and who does it (agent or user). -->
-Awaiting review/merge of PR #30 (chore/readme-cli-entrypoint -> main, README refresh for the CLI Entrypoint iteration, CI green). Once merged: this iteration is fully complete -- offer /publish, or ask the user if they have more to add (which would start another iteration).
+PR #30 merged; README refresh complete. CLI Entrypoint & MCP Server Wiring iteration is fully done (all merged, README current). Ask the user: run /publish now, or hold for more (which would start another iteration) -- per CLAUDE.md -> New Iterations, Phase only reaches `done` once that choice is actually made.
