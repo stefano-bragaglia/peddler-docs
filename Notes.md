@@ -223,4 +223,4 @@ status: <!-- unpublished | built | published | failed -->
 
 ## Next Action
 <!-- One sentence. What should happen next, and who does it (agent or user). -->
-PR #35 (real browser adapter fill/submit/is_checked fix + visible-by-default browser) is open, CI should be verified green, then awaiting the user's manual review/merge; on merge, no further action needed for this fix (it's a bug fix, not a story/feature) — then ask the user whether to run /publish or start another iteration.
+PR #35 merged (confirmed via `gh pr view --json state,mergedAt`); branch deleted, local `main` fast-forwarded. Real browser adapter fix (fill/submit/is_checked, networkidle goto, visible-by-default browser) is live on `main`. Ask the user whether to run /publish now, or hold for more (another iteration).
