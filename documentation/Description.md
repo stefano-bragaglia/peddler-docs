@@ -83,7 +83,7 @@ browser tools (`open_session`, `close_session`, `fill_field`, `fill_credential_f
 registered against a `ToolRegistry` at all, unlike the credentials and applog tools, which each got a
 `register_*_tools(registry, ...)` wiring function — the browser tools also don't yet match the registry's
 expected handler shape (`arguments: dict -> dict`); and (c) nothing documents how Claude Code discovers/launches
-the server (no `.mcp.json`, no `claude mcp add` instructions). Running `/apply` today would fail immediately —
+the server (no MCP registration mechanism, no `claude mcp add` instructions). Running `/apply` today would fail immediately —
 the slash command exists, but there is no server on the other end of it.
 
 **What this iteration adds:**
@@ -92,7 +92,7 @@ the slash command exists, but there is no server on the other end of it.
   (adding the missing `register_browser_tools(registry)` equivalent, with adapter handlers matching the
   `arguments: dict -> dict` shape the registry expects) and serves them over the existing stdio JSON-RPC
   `Transport`/`Server` framework (feature 1) — the actual MCP server process, never run directly by the user,
-  only spawned by Claude Code per its `.mcp.json` entry.
+  only spawned by Claude Code once registered.
 - **`peddler`** — a new console script, the user-facing launcher, built on `argparse`:
   - `--dir` (default: current working directory) — the folder to launch Claude Code in. This is the user's own
     job-search workspace, not Peddler's own source checkout.
@@ -100,14 +100,15 @@ the slash command exists, but there is no server on the other end of it.
   - `--applog` (default: `~/.peddler/applications.log`) — overrides the application log path, for symmetry with
     `--credentials`. Both currently live as hardcoded constants (`DEFAULT_CREDENTIALS_PATH`,
     `DEFAULT_APPLOG_PATH`); this iteration makes them overridable, plumbed through to the `peddler-mcp` subprocess
-    via environment variables set in the generated `.mcp.json` entry (e.g. `PEDDLER_CREDENTIALS_PATH`,
-    `PEDDLER_APPLOG_PATH`).
+    via environment variables passed through the MCP registration.
   - Everything after a `--` separator is forwarded verbatim to `claude` itself (e.g. `peddler -- --model opus`).
-  - Behavior: ensure/write a `peddler` entry in `<dir>/.mcp.json` (idempotent — add if missing, never clobber
-    other MCP servers already configured for that project) pointing at `peddler-mcp` with the resolved
-    credentials/applog paths as env vars, then `exec` (replace the current process with) `claude` in `<dir>`.
+  - Behavior: checks Playwright's browser binaries are installed (fails fast with a fix-it message if not);
+    ensures `peddler` is registered as an MCP server via `claude mcp add ... --scope local` (idempotent — treats
+    "already registered" as success, never writes a `.mcp.json` file into the user's own `--dir`) with the
+    resolved credentials/applog paths as env vars; then `exec`s (replaces the current process with) `claude` in
+    `<dir>`.
 - **Lifecycle, by design, not by extra code:** Claude Code itself spawns the MCP server as its own child process
-  per `.mcp.json` and kills it when Claude Code exits — this is how MCP over stdio already works, not something
+  once registered, and kills it when Claude Code exits — this is how MCP over stdio already works, not something
   `peddler` has to implement. Because `peddler` `exec`s `claude` (replacing itself rather than spawning and
   babysitting a subprocess), closing the terminal sends the normal OS signal down the process chain
   (terminal → `claude` → its MCP-server child) and everything shuts down together for free, using ordinary
@@ -120,3 +121,6 @@ the slash command exists, but there is no server on the other end of it.
 - Anti-bot / stealth evasion beyond what's needed for normal, honest form-filling.
 - Hardening the credentials log book beyond "LLM never touches it directly via tool-mediated access" (e.g. encryption at rest) — noted as a future improvement, not a v1 requirement.
 - Harness to write a valid cover letter when required (with no hallucinations, no exaggerations to match the JD, etc.)
+- Cross-process file locking for the credentials log book / application log when multiple `peddler` sessions run
+  simultaneously against the same default paths — mitigated for now by convention (one application at a time, or
+  distinct `--credentials`/`--applog` paths per simultaneous session), not code.

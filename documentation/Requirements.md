@@ -63,14 +63,21 @@
     currently registered against any `ToolRegistry` at all) into one shared registry and serving them over the
     existing stdio JSON-RPC `Transport`/`Server` framework. This is spawned only by Claude Code, per its MCP
     server configuration — never invoked directly by the user.
-15. `peddler` ensures the target directory has an MCP server registration pointing at `peddler-mcp`, with the
-    resolved `--credentials`/`--applog` paths passed through as environment variables, without clobbering any
-    other MCP servers already configured for that project. (Exact registration mechanism — `.mcp.json` file vs.
-    `claude mcp add` vs. something else — is an open question below.)
+15. `peddler` ensures `peddler` is registered as an MCP server via `claude mcp add ... --scope local`, with the
+    resolved `--credentials`/`--applog` paths passed through as environment variables — never a `.mcp.json` file
+    written into `--dir` itself (that's the user's own workspace, not Peddler's, and a `.mcp.json` living there
+    risks getting accidentally committed if it happens to be a git repo). This is idempotent: if `peddler` is
+    already registered at local scope (a prior invocation), treat that as success rather than re-adding or
+    erroring; any other failure from `claude mcp add` itself (e.g. `claude` not on `PATH`) fails loudly with the
+    underlying error.
 16. `peddler` launches Claude Code by replacing its own process (`exec`, not spawning a child it has to track),
     so that closing the terminal / ending the Claude Code session tears down the MCP server subprocess too via
     ordinary OS process/signal propagation — not custom lifecycle-tracking code. `peddler` never opens a new
     terminal window; it takes over the shell it was invoked from.
+17. Before registering the MCP server and launching Claude Code, `peddler` checks that Playwright's browser
+    binaries are installed and fails fast with a clear fix-it message (e.g. "run `uv run playwright install
+    chromium`") if not — surfacing a missing-browser problem immediately at launch rather than several turns into
+    a conversation, the first time `/apply` calls `open_session`.
 
 ## Non-Functional Requirements
 
@@ -90,7 +97,11 @@
 - **Scope boundaries** (carried over from `Description.md`): no CAPTCHA solving, no anti-bot/stealth evasion
   beyond normal honest form-filling, no cover-letter generation.
 - **Concurrency**: v1 supports one active application session (one open browser) at a time per `/apply`
-  invocation; concurrent `/apply` runs are out of scope for now.
+  invocation; concurrent `/apply` runs are out of scope for now. `peddler` makes running multiple simultaneous
+  sessions (different `--dir`s) easier to reach for, but neither `CredentialStore.put()` nor
+  `ApplicationLog.append()` has file locking — for now this is mitigated by convention, not code: run one
+  application at a time, or point simultaneous sessions at distinct `--credentials`/`--applog` paths. Real file
+  locking is deferred (see `Description.md → Out of Scope`).
 - **Packaging**: `peddler` and `peddler-mcp` are registered as `[project.scripts]` entry points in
   `project/pyproject.toml`, so installing the package (`uv tool install peddler` or equivalent) puts both on
   `PATH`.
@@ -133,7 +144,8 @@ Before any of that, the user starts a session with the `peddler` launcher from t
 
 ```
 $ peddler --dir ~/job-search --credentials ~/job-search/.peddler/credentials.json
-[peddler] registered MCP server in /Users/you/job-search/.mcp.json
+[peddler] checking playwright browser binaries... ok
+[peddler] registered MCP server (local scope) for /Users/you/job-search
 [peddler] starting claude in /Users/you/job-search ...
 
 > /apply ~/cv.md ~/jobs/acme-backend-swe/jd.md https://acme.example.com/careers/apply/1234
@@ -186,16 +198,25 @@ Closing that terminal (or exiting Claude Code normally) ends the whole session, 
 
 1. *Q: Naming — is `peddler` (launcher) / `peddler-mcp` (server) the right pair of console-script names, or would
    you prefer something else (e.g. to make the "don't run this one yourself" distinction more obvious)?*
+   _A: Keep `peddler` / `peddler-mcp`._
 2. *Q: Where should `peddler` register the MCP server — a `.mcp.json` file written into `--dir` (visible,
    possibly tracked if that directory happens to be its own git repo), or Claude Code's user/local-scope config
    (e.g. via `claude mcp add ... --scope local`, invisible inside `--dir`)? This matters because `--dir` is the
    user's own workspace, not Peddler's — an unwanted tracked file there is a real annoyance, not just cosmetic.*
+   _A: `claude mcp add ... --scope local` — no file written into the user's own workspace at all._
 3. *Q: If `--dir` already has an MCP server config with something unexpected in it (malformed JSON, a `peddler`
    entry already pointing somewhere else) — fail loudly and ask the user to fix it, or overwrite it?*
+   _A: Since registration is now via `claude mcp add --scope local` (per Q2), the only realistic collision is
+   `peddler` already being registered locally from a prior invocation — treat that as success (idempotent, don't
+   re-add or error), by checking `claude mcp list` (or equivalent) first. Any other genuine failure from
+   `claude mcp add` itself (e.g. `claude` not on `PATH`) fails loudly with the underlying error, never silently
+   swallowed._
 4. *Q: Should `peddler` check that Playwright's browser binaries are actually installed (`playwright install
    chromium`) before handing off to Claude Code, so a missing-browser failure surfaces immediately at launch with
    a clear message — rather than several turns into a conversation, the first time `/apply` calls
    `open_session`?*
+   _A: Yes — check and fail fast with a clear fix-it message (e.g. "run `uv run playwright install chromium`")
+   before launching Claude Code._
 5. *Q: The existing Concurrency non-functional requirement assumes one active `/apply` at a time — framed around
    a single invocation. `peddler` makes running multiple simultaneous sessions (different `--dir`s, different
    terminals) easier to stumble into. If two sessions share the same `--credentials`/`--applog` path (the
@@ -203,3 +224,6 @@ Closing that terminal (or exiting Claude Code normally) ends the whole session, 
    and `ApplicationLog.append()` have no file locking (explicitly out of scope for v1, per the existing
    Concurrency requirement). Is relying on the user to point separate sessions at separate `--credentials`/
    `--applog` paths an acceptable mitigation, or does this need real cross-process locking now?*
+   _A: For now, rely on the user to either use separate `--credentials`/`--applog` paths per simultaneous session,
+   or apply to one job at a time. Real file locking is deferred — recorded in `Description.md → Out of Scope` as
+   a future improvement, not a requirement for this iteration._

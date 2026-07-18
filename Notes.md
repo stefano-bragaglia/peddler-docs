@@ -2,7 +2,7 @@
 
 ## Phase
 <!-- onboarding | setup | requirements | features | stories | stage-a | stage-b | pr | publish | done -->
-requirements
+features
 
 ## Project
 name: peddler
@@ -21,8 +21,6 @@ status: <!-- unpublished | built | published | failed -->
 ## Open Questions
 <!-- Add a question when blocked. Clear (delete the line) when answered. -->
 <!-- Format: - [ ] Q: <question> / A: <answer> -->
-- [ ] Q: CLI Entrypoint iteration — 5 questions in Requirements.md -> ## Questions: CLI Entrypoint (naming,
-  .mcp.json registration scope, conflict handling, Playwright-binary preflight check, concurrency/locking).
 
 ## Features
 <!-- status: proposed | approved | branched | stories-merged | pr-open | done -->
@@ -168,4 +166,4 @@ status: <!-- unpublished | built | published | failed -->
 
 ## Next Action
 <!-- One sentence. What should happen next, and who does it (agent or user). -->
-Requirements.md amended (requirements 13-16, new non-functional bullets, launcher usage example, ## Questions: CLI Entrypoint with 5 open questions). Awaiting user answers before /features.
+All 5 CLI Entrypoint questions answered and folded into requirement prose (peddler/peddler-mcp naming kept; MCP registration via `claude mcp add --scope local`, not .mcp.json; idempotent re-registration; Playwright preflight check added as requirement 17; concurrency mitigated by convention, file locking deferred to Out of Scope). Run /features to draft epic 6 (CLI Entrypoint & MCP Server Wiring).
