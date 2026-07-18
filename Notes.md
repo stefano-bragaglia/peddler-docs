@@ -166,4 +166,4 @@ status: <!-- unpublished | built | published | failed -->
 
 ## Next Action
 <!-- One sentence. What should happen next, and who does it (agent or user). -->
-Starting a new iteration (CLI entrypoint launcher, per CLAUDE.md -> New Iterations): amending Description.md next, then Requirements.md with new questions -- stop there for the user to answer before /features. Also awaiting review/merge of PR #26 (chore/per-file-coverage-gate -> main, CI green) -- independent of the new iteration.
+PR #26 merged (per-file coverage gate now live on main). Starting a new iteration (CLI entrypoint launcher, per CLAUDE.md -> New Iterations): Description.md amended with the new iteration section (src/peddler/commands entrypoint, peddler/peddler-mcp console scripts) -- present it to the user for confirmation, then /requirements with new questions -- stop there before /features.
