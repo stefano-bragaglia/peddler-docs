@@ -188,6 +188,39 @@ status: <!-- unpublished | built | published | failed -->
   `~/.claude/commands/apply.md`) via the new parameter's real default. Unavoidable given the signature change;
   all 9 pre-existing tests' assertions are otherwise untouched.
 
+- 2026-07-18: The user hand-tested `/apply` against a real BambooHR careers page and hit a wall: `advance_page()`
+  errored with `'_PlaywrightPage' object has no attribute 'submit'`, and `open_session` returned an empty
+  `#micro-container2` mount after 3 attempts. Live diagnosis (real Playwright, real target URL — not guessing)
+  found two compounding root causes, both in the real adapter (`session.py`'s `_PlaywrightPage`): (1) it was
+  only ever written for story `4-browser-session-tools/2-session-lifecycle`'s `goto`/`content`/`close` — stories
+  `3-fill-field` and `4-advance-page` never extended it because their tests only ever used fakes, so `fill()`,
+  `submit()`, and `is_checked()` didn't exist on the real class at all; (2) `goto()`'s default
+  `wait_until="load"` resolved before JS-rendered "micro-app" careers pages finished rendering their actual form
+  content. Fixed as a bug fix to already-merged code (feature 4), not a new iteration — no Description/
+  Requirements amendment needed:
+  - `goto()` now uses `wait_until="networkidle"`, wraps failures as `NavigationError`.
+  - Implemented `fill()`/`is_checked()`/`submit()` on the real adapter. `submit()` detects field-level
+    validation errors via a best-effort `aria-invalid`/`aria-describedby` heuristic (user's explicit choice,
+    over "always return advanced, let the LLM judge" — the latter would have required rewriting story
+    `4-advance-page`'s acceptance criteria).
+  - `FieldNotFoundError` moved from `fields.py` to `session.py` (re-exported from `fields.py` for existing
+    imports) — the real adapter needs to raise it and importing it from `fields.py` would have been circular.
+  - New `tests/browser/test_real_adapter.py` drives the real adapter (real Chromium, forced headless via
+    `PEDDLER_HEADLESS=1`) against local HTML fixtures — the only way this class of bug is actually caught,
+    since every other browser test intentionally still uses fakes for speed. This is a deliberate, narrow
+    exception to "fakes over a real browser in tests" for the adapter itself, not a reversal of that policy for
+    browser-*tool* tests.
+  - **Behaviour change (user-requested, not a bug fix):** `peddler` now launches the browser **visible by
+    default**; `--headless` opts out (plumbed through `_register_mcp_server` as a `PEDDLER_HEADLESS` env var on
+    the registered MCP server). This reverses `Requirements.md`'s original "Stuck Handling keeps the browser
+    headless" decision (2026-07-17) — the user wants to *watch* `/apply` work, not just get text-only guidance
+    after it gets stuck. Superseding the earlier decision here rather than editing `Requirements.md`, since this
+    was a quick, practical mid-debugging ask, not a formal new requirement.
+  - Live-verified against the real target URL: previously-empty `#micro-container2` now renders full content.
+  - Opened as PR #35 (`fix/real-browser-adapter` → `main`), 140/140 tests passing, 99.51% coverage, both
+    coverage gates green. Awaiting user review/merge (like the `Transport.flush()` fix, this is a standalone
+    bug-fix branch, not epic-tier — no auto-merge).
+
 ## Next Action
 <!-- One sentence. What should happen next, and who does it (agent or user). -->
-PR #34 merged; README refresh complete. Both the CLI Entrypoint and Slash Command Installation iterations are fully done (all merged, README current, transport-flush bug fixed and verified). Ask the user: run /publish now, or hold for more (which would start another iteration).
+PR #35 (real browser adapter fill/submit/is_checked fix + visible-by-default browser) is open, CI should be verified green, then awaiting the user's manual review/merge; on merge, no further action needed for this fix (it's a bug fix, not a story/feature) — then ask the user whether to run /publish or start another iteration.
