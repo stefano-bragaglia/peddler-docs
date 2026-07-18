@@ -33,7 +33,7 @@ status: <!-- unpublished | built | published | failed -->
 | 4-browser-session-tools | feature/4-browser-session-tools | done |
 | 5-apply-orchestration | feature/5-apply-orchestration | done |
 | 6-cli-entrypoint | feature/6-cli-entrypoint | done |
-| 7-slash-command-installation | | approved |
+| 7-slash-command-installation | feature/7-slash-command-installation | branched |
 
 ## Stories
 | Feature | Story | Branch | Status |
@@ -56,7 +56,7 @@ status: <!-- unpublished | built | published | failed -->
 | 5-apply-orchestration | 2-email-extractor | story/5-apply-orchestration/2-email-extractor (deleted, merged) | merged |
 | 6-cli-entrypoint | 1-mcp-server-wiring | story/6-cli-entrypoint/1-mcp-server-wiring (deleted, merged) | merged |
 | 6-cli-entrypoint | 2-peddler-launcher | story/6-cli-entrypoint/2-peddler-launcher (deleted, merged) | merged |
-| 7-slash-command-installation | 1-install-apply-command | | approved |
+| 7-slash-command-installation | 1-install-apply-command | story/7-slash-command-installation/1-install-apply-command | tests |
 
 ## Decisions
 <!-- Key choices made and why. Future agents use this to avoid re-litigating. -->
@@ -181,6 +181,13 @@ status: <!-- unpublished | built | published | failed -->
   already-merged code (feature 1), not a new iteration — no Description/Requirements amendment needed. Opened as
   PR #31 (`fix/mcp-transport-flush` → `main`), CI green.
 
+- 2026-07-18: Story `7-slash-command-installation/1-install-apply-command`'s Stage A necessarily edited
+  `tests/test_launcher.py`, which belongs to already-merged story `6-cli-entrypoint/2-peddler-launcher` — adding
+  a new `install_command` parameter to `main()` meant every existing test call needed an explicit
+  `install_command=_noop_install_command` to avoid a real side effect (writing to the real
+  `~/.claude/commands/apply.md`) via the new parameter's real default. Unavoidable given the signature change;
+  all 9 pre-existing tests' assertions are otherwise untouched.
+
 ## Next Action
 <!-- One sentence. What should happen next, and who does it (agent or user). -->
-Story approved. Run /stage-a 7-slash-command-installation/1-install-apply-command (epic branch will be created lazily).
+Run /stage-b 7-slash-command-installation/1-install-apply-command (tests written on story/7-slash-command-installation/1-install-apply-command; production code not yet written).
