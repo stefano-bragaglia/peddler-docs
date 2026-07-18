@@ -54,7 +54,7 @@ status: <!-- unpublished | built | published | failed -->
 | 5-apply-orchestration | 1-apply-command | story/5-apply-orchestration/1-apply-command (deleted, merged) | merged |
 | 5-apply-orchestration | 2-email-extractor | story/5-apply-orchestration/2-email-extractor (deleted, merged) | merged |
 | 6-cli-entrypoint | 1-mcp-server-wiring | story/6-cli-entrypoint/1-mcp-server-wiring (deleted, merged) | merged |
-| 6-cli-entrypoint | 2-peddler-launcher | | approved |
+| 6-cli-entrypoint | 2-peddler-launcher | story/6-cli-entrypoint/2-peddler-launcher | tests |
 
 ## Decisions
 <!-- Key choices made and why. Future agents use this to avoid re-litigating. -->
@@ -169,4 +169,4 @@ status: <!-- unpublished | built | published | failed -->
 
 ## Next Action
 <!-- One sentence. What should happen next, and who does it (agent or user). -->
-Run /stage-a 6-cli-entrypoint/2-peddler-launcher (last story for this feature).
+Run /stage-b 6-cli-entrypoint/2-peddler-launcher (tests written on story/6-cli-entrypoint/2-peddler-launcher; production code not yet written). Last story for this feature.
