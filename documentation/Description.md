@@ -115,6 +115,21 @@ the slash command exists, but there is no server on the other end of it.
   process/signal semantics — no manual process-pairing/tracking code needed. `peddler` opens no new terminal
   window; it takes over the shell it was invoked from.
 
+## Iteration: Slash Command Installation (2026-07-18)
+
+**Problem this closes:** the previous iteration made `/apply` *runnable* (an MCP server now exists and gets
+registered), but never made it *discoverable*. Claude Code finds slash commands by reading `.md` files out of
+`.claude/commands/` (project- or user-scope) — shipping `apply.md` inside the installed Python package (verified
+in the prior iteration) satisfies packaging, but nothing ever copies it into either of those locations. Confirmed
+by hand: after installing and running `peddler`, Claude Code reports `Unknown command: /apply`.
+
+**What this iteration adds:** `peddler` also installs the `/apply` command at **user scope**
+(`~/.claude/commands/apply.md`) — not project scope inside `--dir` — for the same reason the MCP registration
+avoids writing into the user's own workspace: it shouldn't leave a file behind in a directory that isn't
+Peddler's to modify, and user scope means the command is available regardless of which `--dir` is used, installed
+once rather than per-workspace. Idempotent: only overwrites if the packaged version differs from what's already
+there (e.g. after a `peddler` upgrade), otherwise a no-op.
+
 ## Out of Scope (for now)
 
 - CAPTCHA solving.
