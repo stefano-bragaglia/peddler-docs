@@ -2,7 +2,7 @@
 
 ## Phase
 <!-- onboarding | setup | requirements | features | stories | stage-a | stage-b | pr | publish | done -->
-stories
+stage-a
 
 ## Project
 name: peddler
@@ -56,6 +56,7 @@ status: <!-- unpublished | built | published | failed -->
 | 5-apply-orchestration | 2-email-extractor | story/5-apply-orchestration/2-email-extractor (deleted, merged) | merged |
 | 6-cli-entrypoint | 1-mcp-server-wiring | story/6-cli-entrypoint/1-mcp-server-wiring (deleted, merged) | merged |
 | 6-cli-entrypoint | 2-peddler-launcher | story/6-cli-entrypoint/2-peddler-launcher (deleted, merged) | merged |
+| 7-slash-command-installation | 1-install-apply-command | | approved |
 
 ## Decisions
 <!-- Key choices made and why. Future agents use this to avoid re-litigating. -->
@@ -182,4 +183,4 @@ status: <!-- unpublished | built | published | failed -->
 
 ## Next Action
 <!-- One sentence. What should happen next, and who does it (agent or user). -->
-Feature 7 (Slash Command Installation) approved. Run /stories 7-slash-command-installation to draft its story (expected: single story extending the peddler launcher).
+Story approved. Run /stage-a 7-slash-command-installation/1-install-apply-command (epic branch will be created lazily).
