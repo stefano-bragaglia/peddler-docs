@@ -56,7 +56,7 @@ status: <!-- unpublished | built | published | failed -->
 | 5-apply-orchestration | 2-email-extractor | story/5-apply-orchestration/2-email-extractor (deleted, merged) | merged |
 | 6-cli-entrypoint | 1-mcp-server-wiring | story/6-cli-entrypoint/1-mcp-server-wiring (deleted, merged) | merged |
 | 6-cli-entrypoint | 2-peddler-launcher | story/6-cli-entrypoint/2-peddler-launcher (deleted, merged) | merged |
-| 7-slash-command-installation | 1-install-apply-command | story/7-slash-command-installation/1-install-apply-command | tests |
+| 7-slash-command-installation | 1-install-apply-command | story/7-slash-command-installation/1-install-apply-command | code |
 
 ## Decisions
 <!-- Key choices made and why. Future agents use this to avoid re-litigating. -->
@@ -190,4 +190,4 @@ status: <!-- unpublished | built | published | failed -->
 
 ## Next Action
 <!-- One sentence. What should happen next, and who does it (agent or user). -->
-Run /stage-b 7-slash-command-installation/1-install-apply-command (tests written on story/7-slash-command-installation/1-install-apply-command; production code not yet written).
+Run /pr 7-slash-command-installation/1-install-apply-command to open its PR against feature/7-slash-command-installation (code done, all gates green including per-file coverage, 99.50% overall). Verified with a real smoke test against a scratch directory (not just unit tests). Last story for this feature -- once merged, feature becomes stories-merged and ready for /pr 7-slash-command-installation.
