@@ -73,6 +73,47 @@ Purely LLM judgment: after each page load, the LLM reads the page content and in
 - **Approved exception — browser automation**: Python's stdlib has no way to drive a headless browser. The user approved adding **Playwright** as a dependency for this. If Playwright turns out not to work for this use case, fall back to **Selenium** (known to work for the user) rather than reaching for a from-scratch CDP/WebSocket client.
 - The MCP server itself does not need this exception — it's plain JSON-RPC over stdio and can be implemented with stdlib alone (`json`, `sys.stdin`/`sys.stdout`).
 
+## Iteration: CLI Entrypoint & MCP Server Wiring (2026-07-18)
+
+**Problem this closes:** every individual piece (credentials store, application log, browser session tools,
+retry policy, the `/apply` command prompt, the JSON-RPC transport/registry/dispatch framework) was built and
+unit-tested in isolation, but nothing ever assembles them into a runnable process, and nothing tells Claude Code
+where to find it. Specifically: (a) there is no entry point — no `__main__`, no console script; (b) feature 4's
+browser tools (`open_session`, `close_session`, `fill_field`, `fill_credential_field`, `advance_page`) were never
+registered against a `ToolRegistry` at all, unlike the credentials and applog tools, which each got a
+`register_*_tools(registry, ...)` wiring function — the browser tools also don't yet match the registry's
+expected handler shape (`arguments: dict -> dict`); and (c) nothing documents how Claude Code discovers/launches
+the server (no `.mcp.json`, no `claude mcp add` instructions). Running `/apply` today would fail immediately —
+the slash command exists, but there is no server on the other end of it.
+
+**What this iteration adds:**
+
+- **`peddler-mcp`** — a new console script that wires every feature's tools into one shared `ToolRegistry`
+  (adding the missing `register_browser_tools(registry)` equivalent, with adapter handlers matching the
+  `arguments: dict -> dict` shape the registry expects) and serves them over the existing stdio JSON-RPC
+  `Transport`/`Server` framework (feature 1) — the actual MCP server process, never run directly by the user,
+  only spawned by Claude Code per its `.mcp.json` entry.
+- **`peddler`** — a new console script, the user-facing launcher, built on `argparse`:
+  - `--dir` (default: current working directory) — the folder to launch Claude Code in. This is the user's own
+    job-search workspace, not Peddler's own source checkout.
+  - `--credentials` (default: `~/.peddler/credentials.json`) — overrides the credentials log book path.
+  - `--applog` (default: `~/.peddler/applications.log`) — overrides the application log path, for symmetry with
+    `--credentials`. Both currently live as hardcoded constants (`DEFAULT_CREDENTIALS_PATH`,
+    `DEFAULT_APPLOG_PATH`); this iteration makes them overridable, plumbed through to the `peddler-mcp` subprocess
+    via environment variables set in the generated `.mcp.json` entry (e.g. `PEDDLER_CREDENTIALS_PATH`,
+    `PEDDLER_APPLOG_PATH`).
+  - Everything after a `--` separator is forwarded verbatim to `claude` itself (e.g. `peddler -- --model opus`).
+  - Behavior: ensure/write a `peddler` entry in `<dir>/.mcp.json` (idempotent — add if missing, never clobber
+    other MCP servers already configured for that project) pointing at `peddler-mcp` with the resolved
+    credentials/applog paths as env vars, then `exec` (replace the current process with) `claude` in `<dir>`.
+- **Lifecycle, by design, not by extra code:** Claude Code itself spawns the MCP server as its own child process
+  per `.mcp.json` and kills it when Claude Code exits — this is how MCP over stdio already works, not something
+  `peddler` has to implement. Because `peddler` `exec`s `claude` (replacing itself rather than spawning and
+  babysitting a subprocess), closing the terminal sends the normal OS signal down the process chain
+  (terminal → `claude` → its MCP-server child) and everything shuts down together for free, using ordinary
+  process/signal semantics — no manual process-pairing/tracking code needed. `peddler` opens no new terminal
+  window; it takes over the shell it was invoked from.
+
 ## Out of Scope (for now)
 
 - CAPTCHA solving.

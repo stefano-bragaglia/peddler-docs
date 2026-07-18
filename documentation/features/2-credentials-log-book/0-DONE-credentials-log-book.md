@@ -1,4 +1,4 @@
-# 2. Credentials Log Book
+# 2. DONE - Credentials Log Book
 
 ## Summary
 

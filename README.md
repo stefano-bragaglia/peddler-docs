@@ -1,4 +1,4 @@
-# Peddler — Vault
+# Peddler — Docs
 
 ![Peddler logo](logo.png)
 
