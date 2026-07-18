@@ -190,4 +190,4 @@ status: <!-- unpublished | built | published | failed -->
 
 ## Next Action
 <!-- One sentence. What should happen next, and who does it (agent or user). -->
-Awaiting review/merge of PR #34 (chore/readme-slash-command-iteration -> main, README refresh, CI green). Once merged: both this iteration and the CLI Entrypoint iteration are fully complete -- offer /publish, or ask the user if they have more to add.
+PR #34 merged; README refresh complete. Both the CLI Entrypoint and Slash Command Installation iterations are fully done (all merged, README current, transport-flush bug fixed and verified). Ask the user: run /publish now, or hold for more (which would start another iteration).
