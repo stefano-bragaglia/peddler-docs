@@ -130,6 +130,24 @@ Peddler's to modify, and user scope means the command is available regardless of
 once rather than per-workspace. Idempotent: only overwrites if the packaged version differs from what's already
 there (e.g. after a `peddler` upgrade), otherwise a no-op.
 
+## Iteration: Apply-Gate Navigation (2026-07-20)
+
+**Problem this closes:** live-testing `/apply` against a real ATS URL (after the real-browser-adapter fix — see
+`Notes.md → Decisions`, 2026-07-18) surfaced a gap the original tool set never accounted for: the URL passed to
+`/apply` often lands on a job-*posting* page, not the application form itself — reaching the actual form requires
+clicking an "Apply" (or similarly labeled) button/link first. None of the existing tools can perform that click:
+`advance_page()`'s `submit()` only targets a form's own `button[type="submit"]`/`input[type="submit"]`, and
+there's no tool at all for clicking an arbitrary link/button that isn't a form submission.
+
+**What this iteration adds:** a new tool, `click_element(text)`, that clicks the first visible link/button whose
+text matches `text` and returns the resulting page's content — letting the LLM navigate through any number of
+gate/interstitial pages (an "Apply" button on a job posting, a "Continue as guest" prompt, etc.) before it starts
+identifying and filling form fields. Consistent with the existing "dumb executor" design: the tool only performs
+one click and reports what happened; deciding *which* text to click, and recognizing when a gate page has been
+successfully passed, stays entirely with the LLM's own reasoning over the returned content. Scoped as a single
+new story on the already-completed `4-browser-session-tools` feature, not a new feature — it's the same kind of
+tool as the ones already there, just a different action.
+
 ## Out of Scope (for now)
 
 - CAPTCHA solving.
